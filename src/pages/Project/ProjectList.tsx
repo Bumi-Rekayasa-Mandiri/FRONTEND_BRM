@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, HardHat } from "lucide-react";
 import { serviceCategoryApi } from "../../api/serviceCategoryApi";
 import type { ServiceItem } from "../../api/serviceCategoryApi";
@@ -20,6 +20,7 @@ const ProjectList = () => {
 
       try {
         setLoading(true);
+        window.scrollTo(0, 0);
         const data = await serviceCategoryApi.getServiceBySlug(slug);
         setService(data);
       } catch (err) {
@@ -43,7 +44,7 @@ const ProjectList = () => {
         </p>
         <button
           onClick={() => navigate(-1)}
-          className="px-6 py-2 bg-brm-maroon text-white rounded-md hover:bg-[#5a1e1b] transition-colors flex items-center gap-2"
+          className="px-6 py-2 bg-[#5a1e1b] text-white rounded-md hover:bg-[#8a2f2b] transition-colors flex items-center gap-2"
         >
           <ArrowLeft size={18} /> Kembali
         </button>
@@ -51,67 +52,106 @@ const ProjectList = () => {
     );
   }
 
+  const descriptionParagraphs = service.description
+    ? service.description.split("\n").filter((p) => p.trim() !== "")
+    : [];
+
   return (
-    <div className="flex flex-col min-h-screen w-full font-jakarta bg-gray-50">
-      <div className="relative h-[50vh] min-h-100 w-full overflow-hidden">
-        <img
-          src="/images/bg-hero-servicelist.png"
-          alt="Service List Hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+    <div className="w-full font-jakarta bg-white pt-24 md:pt-32 pb-20">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#5a1e1b] text-[#5a1e1b] font-medium hover:bg-[#5a1e1b] hover:text-white transition-all duration-300 w-fit text-sm"
+          >
+            <ArrowLeft size={16} /> Back
+          </button>
 
-        <div className="absolute inset-0 bg-linear-to-r from-[#5a1e1b]/95 via-[#5a1e1b]/80 to-[#5a1e1b]/40 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-[#5a1e1b]/60"></div>
+          <div className="text-gray-500 text-sm font-medium">
+            <Link to="/" className="hover:text-[#5a1e1b]">
+              Home
+            </Link>
+            <span className="mx-2">/</span>
+            <Link to="/services" className="hover:text-[#5a1e1b]">
+              Services
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-[#5a1e1b] font-bold">{service.name}</span>
+          </div>
+        </div>
 
-        <div className="relative z-10 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
-          <div className="absolute top-20 md:top-28 left-6 md:left-12">
-            <button
-              onClick={() => navigate(-1)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 text-white text-sm font-medium hover:bg-white/10 transition-colors backdrop-blur-sm"
-            >
-              <ArrowLeft size={16} />
-              Back
-            </button>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#5a1e1b] mb-10">
+            {service.name}
+          </h1>
+
+          <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg mb-12">
+            <img
+              src={service.thumbnail || "/images/placeholder-service.jpg"}
+              alt={service.name}
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <div className="mt-10 max-w-4xl animate-fade-in-up">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-              <span className="opacity-70 font-normal">
-                {service.category?.name || "Service"}
-              </span>{" "}
-              &gt; {service.name}
-            </h1>
-            <p className="text-gray-100 text-lg font-light leading-relaxed border-l-4 border-white/30 pl-4">
+          <div className="w-full mx-auto text-left text-gray-600 leading-relaxed space-y-6 mb-12 text-lg">
+            {descriptionParagraphs.map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
+          </div>
+
+          {service.gallery && service.gallery.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mx-auto">
+              {service.gallery.slice(0, 3).map((imgUrl, index) => (
+                <div
+                  key={index}
+                  className="h-48 md:h-64 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group"
+                >
+                  <img
+                    src={imgUrl}
+                    alt={`${service.name} gallery ${index + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-24 pt-16 border-t border-gray-100">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#5a1e1b] mb-3">
+              Our Projects
+            </h2>
+            <p className="text-gray-500 text-lg">
               These are our previous projects for {service.name}.
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-6 md:px-12 py-16 lg:py-24">
-        {service.projects && service.projects.length > 0 ? (
-          <div className="flex flex-col gap-16 lg:gap-24">
-            {service.projects.map((project, index) => (
-              <ProjectListCard
-                key={project.id}
-                project={project}
-                isReversed={index % 2 !== 0}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl p-16 text-center shadow-sm border border-gray-100 max-w-2xl mx-auto">
-            <div className="inline-block p-6 rounded-full bg-gray-50 mb-6">
-              <HardHat size={48} className="text-gray-400" />
+          {service.projects && service.projects.length > 0 ? (
+            <div className="flex flex-col gap-16 lg:gap-24">
+              {service.projects.map((project, index) => (
+                <ProjectListCard
+                  key={project.id}
+                  project={project}
+                  isReversed={index % 2 !== 0}
+                />
+              ))}
             </div>
-            <h3 className="text-2xl font-bold text-[#5a1e1b] mb-3">
-              Project Coming Soon
-            </h3>
-            <p className="text-gray-500 text-lg">
-              Saat ini belum ada data proyek yang ditampilkan untuk layanan ini.
-            </p>
-          </div>
-        )}
+          ) : (
+            <div className="bg-gray-50 rounded-xl p-16 text-center shadow-sm border border-dashed border-gray-200 max-w-2xl mx-auto">
+              <div className="inline-block p-6 rounded-full bg-white mb-6 shadow-sm">
+                <HardHat size={48} className="text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-[#5a1e1b] mb-3">
+                Project Coming Soon
+              </h3>
+              <p className="text-gray-500 text-lg">
+                Saat ini belum ada data proyek yang ditampilkan untuk layanan
+                ini.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
