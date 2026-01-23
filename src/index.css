@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
+
 @theme {
   --font-jakarta: "Plus Jakarta Sans", sans-serif;
 
-  --color-brm-green: #136D3A;   /* Hijau Utama */
-  --color-brm-maroon: #772824;  /* Merah Marun */
+  --color-brm-green: #0D4C29;   /* Hijau Tua */
+  --color-brm-green-2: #158E4B;   /* Hijau Muda */
+  --color-brm-maroon: #531C19;  /* Merah Marun */
+  --color-brm-maroon-2: #861812; /* Merah Terang */
   --color-brm-beige: #C1AE9F;   /* Krem/Beige */
+  --color-brm-beige-2: #E6DED8;   /* Krem Terang */
   
   --color-brm-light: #F9F9F8;   
 }
