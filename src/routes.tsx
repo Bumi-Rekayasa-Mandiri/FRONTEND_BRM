@@ -4,8 +4,11 @@ import MainLayout from "./layouts/MainLayout";
 import Loader from "./components/common/Loader";
 
 const Home = lazy(() => import("./pages/Home/Home"));
-const Services = lazy(() => import("./pages/Services/ServicesList"));
+const ServiceCategory = lazy(() => import("./pages/Services/ServiceCategory"));
+const ServiceList = lazy(() => import("./pages/Services/ServiceList"));
+const ProjectList = lazy(() => import("./pages/Project/ProjectList"));
 const Gallery = lazy(() => import("./pages/Project/Gallery"));
+const ProjectDetail = lazy(() => import("./pages/Project/ProjectDetail"));
 const Clients = lazy(() => import("./pages/Clients/Clients"));
 const About = lazy(() => import("./pages/About/AboutUs"));
 const Contact = lazy(() => import("./pages/About/Contact"));
@@ -26,19 +29,53 @@ const router = createBrowserRouter([
       },
       {
         path: "services",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Services />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ServiceCategory />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":slug",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ServiceList />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":categorySlug/:slug",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ProjectList />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "projects",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Gallery />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Gallery />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":slug",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ProjectDetail />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "clients",

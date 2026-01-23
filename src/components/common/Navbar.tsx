@@ -4,21 +4,12 @@ import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(false);
-    }, 0);
+    }, 10);
 
     return () => clearTimeout(timer);
   }, [location]);
@@ -42,15 +33,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 font-jakarta ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm py-3"
-          : "bg-transparent py-4"
-      }`}
-    >
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3 z-50">
+    <nav className="fixed top-0 w-full z-50 transition-all duration-300 font-jakarta bg-white/95 backdrop-blur-md shadow-sm py-1 md:py-1.5">
+      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src="/images/logo-brm.png"
             alt="Bumi Rekayasa Mandiri"
@@ -81,41 +66,41 @@ const Navbar = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-brm-maroon focus:outline-none z-50 p-2"
+          className="lg:hidden text-brm-maroon focus:outline-none p-2"
           aria-label="Toggle Menu"
         >
           {isOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
+      </div>
 
-        <div
-          className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-transform duration-300 ease-in-out lg:hidden ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex flex-col space-y-8 text-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-2xl font-bold transition-colors ${
-                  isActive(link.path)
-                    ? "text-brm-maroon border-b-2 border-brm-maroon inline-block"
-                    : "text-gray-600 hover:text-brm-maroon"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+      <div
+        className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-transform duration-300 ease-in-out lg:hidden w-full h-screen top-0 left-0 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col space-y-8 text-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`text-2xl font-bold transition-colors ${
+                isActive(link.path)
+                  ? "text-brm-maroon border-b-2 border-brm-maroon inline-block"
+                  : "text-gray-600 hover:text-brm-maroon"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
 
-          <div className="absolute bottom-10 text-center space-y-1">
-            <p className="text-sm font-semibold text-brm-green">
-              PT. BUMI REKAYASA MANDIRI
-            </p>
-            <p className="text-xs text-gray-400">
-              Precision Building. Sustainable Value.
-            </p>
-          </div>
+        <div className="absolute bottom-10 text-center space-y-1">
+          <p className="text-sm font-semibold text-brm-green">
+            PT. BUMI REKAYASA MANDIRI
+          </p>
+          <p className="text-xs text-gray-400">
+            Precision Building. Sustainable Value.
+          </p>
         </div>
       </div>
     </nav>

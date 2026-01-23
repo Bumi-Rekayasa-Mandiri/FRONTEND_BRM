@@ -1,0 +1,69 @@
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import type { ProjectItem } from "../../api/serviceCategoryApi";
+
+interface ProjectListCardProps {
+  project: ProjectItem;
+  isReversed: boolean;
+}
+
+const stripHtml = (html: string) => {
+  const tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+};
+
+const ProjectListCard = ({ project, isReversed }: ProjectListCardProps) => {
+  return (
+    <div
+      className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${
+        isReversed ? "lg:flex-row-reverse" : ""
+      }`}
+    >
+      <div className="w-full lg:w-1/2">
+        <div className="relative h-64 md:h-80 lg:h-100 w-full overflow-hidden rounded-xl shadow-lg group">
+          <img
+            src={project.thumbnail || "/images/placeholder-project.jpg"}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src =
+                "https://placehold.co/800x600?text=No+Image";
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
+        <h3 className="text-2xl md:text-3xl font-bold text-[#5a1e1b] mb-3">
+          {project.title}
+        </h3>
+
+        {project.subtitle && (
+          <p className="text-[#5a1e1b]/80 font-medium mb-4 text-lg">
+            {project.subtitle}
+          </p>
+        )}
+
+        <p className="text-gray-600 leading-relaxed mb-8 line-clamp-4 text-justify">
+          {project.description
+            ? stripHtml(project.description)
+            : "Deskripsi proyek belum tersedia."}
+        </p>
+
+        <Link
+          to={`/projects/${project.slug}`}
+          className="inline-flex items-center gap-2 px-8 py-2 rounded-full border border-gray-400 text-gray-700 font-medium transition-all duration-300 hover:border-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white group"
+        >
+          See More
+          <ArrowRight
+            size={16}
+            className="transition-transform group-hover:translate-x-1"
+          />
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default ProjectListCard;
