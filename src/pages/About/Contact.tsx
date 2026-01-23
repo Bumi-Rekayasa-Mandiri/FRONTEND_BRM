@@ -6,24 +6,6 @@ const BUSINESS_HOURS = [
   { day: "Sunday", time: "Closed", isClosed: true },
 ];
 
-const CONTACT_LINKS = [
-  {
-    icon: MessageCircle,
-    label: "+62 811-964-060",
-    href: "https://wa.me/62811964060",
-  },
-  {
-    icon: Mail,
-    label: "bumirekayasa.mandiri@gmail.com",
-    href: "mailto:bumirekayasa.mandiri@gmail.com",
-  },
-  {
-    icon: Mail,
-    label: "bumirekayasa.mandiri@yahoo.com",
-    href: "mailto:bumirekayasa.mandiri@yahoo.com",
-  },
-];
-
 const SECONDARY_OFFICES = [
   {
     title: "Office 2",
@@ -130,44 +112,6 @@ const Contact = () => {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative h-100 bg-white text-white overflow-hidden">
-        <img
-          src="/images/contact-img-2.png"
-          alt="Contact Image"
-          className="absolute right-0 top-0 h-full w-full md:w-auto max-w-none object-cover opacity-15 md:opacity-100"
-        />
-
-        <div className="absolute inset-0 bg-linear-to-r from-white via-white/80 to-transparent"></div>
-
-        <div className="relative z-10 container mx-auto px-6 h-full flex items-center">
-          <div className="max-w-lg">
-            <h2 className="text-4xl font-bold mb-8 bg-linear-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent">
-              Contact Us on:
-            </h2>
-
-            <ul className="space-y-4">
-              {CONTACT_LINKS.map((contact, index) => (
-                <li key={index}>
-                  <a
-                    href={contact.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 group p-3 rounded-xl hover:bg-white/80 transition-all border border-transparent hover:border-[#E5E0D8] hover:shadow-sm"
-                  >
-                    <div className="h-10 w-10 rounded-full bg-brm-maroon text-white flex items-center justify-center shrink-0 shadow-md group-hover:bg-[#5a1e1b] transition-colors">
-                      <contact.icon size={20} />
-                    </div>
-                    <span className="text-[#5A2D2C] text-base md:text-lg font-medium group-hover:text-brm-maroon break-all">
-                      {contact.label}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>

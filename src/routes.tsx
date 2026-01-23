@@ -7,6 +7,7 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const ServiceCategory = lazy(() => import("./pages/Services/ServiceCategory"));
 const ServiceList = lazy(() => import("./pages/Services/ServiceList"));
 const ProjectList = lazy(() => import("./pages/Project/ProjectList"));
+const ArticleDetail = lazy(() => import("./pages/Articles/ArticleDetail"));
 const Gallery = lazy(() => import("./pages/Project/Gallery"));
 const ProjectDetail = lazy(() => import("./pages/Project/ProjectDetail"));
 const Clients = lazy(() => import("./pages/Clients/Clients"));
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: "articles/:slug",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ArticleDetail />
           </Suspense>
         ),
       },

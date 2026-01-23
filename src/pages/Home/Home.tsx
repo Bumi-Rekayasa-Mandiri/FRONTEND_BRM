@@ -1,0 +1,374 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { homeApi } from "../../api/homeApi";
+import type { HomeData } from "../../api/homeApi";
+import Loader from "../../components/common/Loader";
+
+const Home = () => {
+  const [data, setData] = useState<HomeData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+
+  const [activeArticleTab, setActiveArticleTab] = useState<"news" | "release">(
+    "news",
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const result = await homeApi.getHomeData();
+        setData(result);
+      } catch (error) {
+        console.error("Failed to fetch home data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const nextProject = () => {
+    if (!data?.featured_projects) return;
+    setCurrentProjectIndex((prev) =>
+      prev === data.featured_projects.length - 1 ? 0 : prev + 1,
+    );
+  };
+
+  const prevProject = () => {
+    if (!data?.featured_projects) return;
+    setCurrentProjectIndex((prev) =>
+      prev === 0 ? data.featured_projects.length - 1 : prev - 1,
+    );
+  };
+
+  if (loading) return <Loader />;
+  if (!data) return null;
+
+  const currentProject = data.featured_projects[currentProjectIndex];
+  const activeArticles =
+    activeArticleTab === "news"
+      ? data.articles.latest_news
+      : data.articles.news_release;
+
+  return (
+    <div className="w-full font-jakarta">
+      <section className="relative h-[80vh] min-h-125 w-full overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="/images/bg-hero-home.png"
+            alt="Hero Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-black/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30"></div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
+          <div className="max-w-3xl text-white space-y-6 pt-20">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight animate-fade-in-up">
+              Building Reliable Infrastructure For Indonesia
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl animate-fade-in-up delay-100">
+              PT. Bumi Rekayasa Mandiri delivers integrated construction and
+              engineering solutions with a strong commitment to safety, quality,
+              and sustainability.
+            </p>
+            <div className="pt-4 animate-fade-in-up delay-200">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300 font-medium"
+              >
+                See More <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {currentProject && (
+        <section className="bg-[#fcfbf9] py-20 relative">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+              <div className="w-full lg:w-3/5 relative group">
+                <div className="relative h-75 md:h-112.5 rounded-2xl overflow-hidden shadow-xl">
+                  <img
+                    src={
+                      currentProject.thumbnail ||
+                      "/images/placeholder-project.jpg"
+                    }
+                    alt={currentProject.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <button
+                    onClick={prevProject}
+                    aria-label="Previous Project"
+                    className="absolute top-1/2 left-4 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white hover:text-[#5a1e1b] transition-all border border-white/30"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    onClick={nextProject}
+                    aria-label="Next Project"
+                    className="absolute top-1/2 right-4 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white hover:text-[#5a1e1b] transition-all border border-white/30"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
+
+                <div className="flex justify-center gap-2 mt-6">
+                  {data.featured_projects.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentProjectIndex(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        idx === currentProjectIndex
+                          ? "w-8 bg-[#5a1e1b]"
+                          : "w-2 bg-gray-300"
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="w-full lg:w-2/5 space-y-6">
+                <h2 className="text-4xl md:text-5xl font-bold text-[#5a1e1b] leading-tight">
+                  {currentProject.title}
+                </h2>
+                <h3 className="text-xl font-semibold text-[#8a2f2b]">
+                  {currentProject.subtitle || "Featured Project"}
+                </h3>
+
+                <div
+                  className="text-gray-600 leading-relaxed line-clamp-4"
+                  dangerouslySetInnerHTML={{
+                    __html: currentProject.description || "",
+                  }}
+                />
+
+                <div className="pt-4">
+                  <Link
+                    to={`/projects/${currentProject.slug}`}
+                    className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-[#5a1e1b] text-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white transition-all duration-300"
+                  >
+                    See More <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-200 pb-4">
+            <div className="mb-6 md:mb-0">
+              <h2 className="text-4xl font-bold text-[#5a1e1b] mb-2">
+                Articles
+              </h2>
+              <p className="text-gray-500">
+                Find out what Bumi Rekayasa Mandiri is up to.
+              </p>
+            </div>
+
+            <div className="flex bg-[#fcf9f6] p-1 rounded-full border border-gray-200">
+              <button
+                onClick={() => setActiveArticleTab("news")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  activeArticleTab === "news"
+                    ? "bg-[#8a2f2b] text-white shadow-md"
+                    : "text-gray-500 hover:text-[#5a1e1b]"
+                }`}
+              >
+                Latest News
+              </button>
+              <button
+                onClick={() => setActiveArticleTab("release")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  activeArticleTab === "release"
+                    ? "bg-[#8a2f2b] text-white shadow-md"
+                    : "text-gray-500 hover:text-[#5a1e1b]"
+                }`}
+              >
+                News Release
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            {activeArticles.length > 0 ? (
+              activeArticles.map((article) => (
+                <div
+                  key={article.id}
+                  className="group flex flex-col md:flex-row gap-6 md:items-center py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded-lg px-4 -mx-4"
+                >
+                  <div className="w-full md:w-1/4 text-gray-500 font-medium text-sm md:text-base">
+                    {article.published_at || "Date unavailable"}
+                  </div>
+                  <div className="w-full md:w-3/4 flex items-start gap-4">
+                    <span
+                      className={`shrink-0 px-3 py-1 rounded text-xs font-bold text-white uppercase tracking-wide ${
+                        article.type === "news"
+                          ? "bg-[#0e3b28]"
+                          : "bg-[#5a1e1b]"
+                      }`}
+                    >
+                      {article.type === "news"
+                        ? "News Update"
+                        : "Press Release"}
+                    </span>
+                    <Link
+                      to={`/articles/${article.slug}`}
+                      className="block group-hover:translate-x-2 transition-transform duration-300"
+                    >
+                      <h4 className="text-lg font-bold text-gray-800 group-hover:text-[#5a1e1b] transition-colors mb-1">
+                        {article.title}
+                      </h4>
+                      <p className="text-gray-500 text-sm line-clamp-1">
+                        {article.excerpt}
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-400 py-10">
+                No articles found in this category.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20 relative overflow-hidden text-white">
+        <div className="absolute inset-0">
+          <img
+            src="/images/bg-hero-servicelist.png"
+            alt="Services Background"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-[#0e3b28]/90 mix-blend-multiply"></div>
+        </div>
+
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              Our Services
+            </h2>
+            <p className="text-gray-300 text-lg border-t border-white/20 pt-4 inline-block">
+              These categories introduce what Bumi Rekayasa Mandiri is focusing.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {data.services.map((service, index) => {
+              const isLarge = index === 0 || index === 3;
+
+              return (
+                <div
+                  key={service.id}
+                  className={`relative group overflow-hidden rounded-xl bg-gray-800 border border-white/10 ${
+                    isLarge
+                      ? "md:col-span-2 aspect-[2.5/1]"
+                      : "md:col-span-1 aspect-video md:aspect-square lg:aspect-4/3"
+                  }`}
+                >
+                  <img
+                    src={service.thumbnail || "/images/placeholder-service.jpg"}
+                    alt={service.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                  <div className="absolute bottom-0 left-0 w-full p-5 md:p-8">
+                    <span className="inline-block px-3 py-1 bg-[#8a2f2b] text-white text-xs font-bold uppercase tracking-wider mb-2 rounded-sm">
+                      {service.name}
+                    </span>
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-2 line-clamp-1">
+                      {service.description?.slice(0, 50) || service.name}
+                    </h3>
+                    <Link
+                      to={`/services/${service.slug}`}
+                      className="text-sm font-medium text-gray-300 group-hover:text-white flex items-center gap-1 mt-2"
+                    >
+                      Learn more <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300"
+            >
+              See All Services <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20 bg-[#fcfbf9]">
+        <div className="container mx-auto px-6 md:px-12 text-center md:text-left">
+          <div className="mb-16">
+            <h2 className="text-4xl font-bold text-[#5a1e1b] mb-4">
+              Our Clients
+            </h2>
+            <div className="w-24 h-1 bg-[#5a1e1b] mb-6 mx-auto md:mx-0"></div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              Why Choose PT. Bumi Rekayasa Mandiri
+            </h3>
+            <p className="text-gray-600 max-w-2xl mx-auto md:mx-0">
+              We have worked with leading companies and organizations, across
+              multiple sectors in Indonesia.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 mb-16">
+            {data.clients.length > 0 ? (
+              data.clients.map((client) => (
+                <div
+                  key={client.id}
+                  className="w-40 md:w-56 transition-all duration-300 hover:scale-110 flex flex-col items-center"
+                >
+                  <img
+                    src={client.logo || "/images/placeholder-logo.png"}
+                    alt={client.name}
+                    className="w-full h-auto object-contain mb-3"
+                    title={client.name}
+                    loading="lazy"
+                  />
+                  <p className="text-base font-semibold text-black-600 text-center">
+                    {client.name}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-black-400">No clients to display.</p>
+            )}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/clients"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-gray-300 text-gray-600 hover:border-[#5a1e1b] hover:text-[#5a1e1b] bg-white shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              See More <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;

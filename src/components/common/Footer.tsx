@@ -12,7 +12,7 @@ export default function Footer() {
               <img
                 src="/images/logo-brm.png"
                 alt="PT. Bumi Rekayasa Mandiri"
-                className="h-16 md:h-40 w-auto object-contain"
+                className="h-18 md:h-44 w-auto object-contain"
               />
             </div>
 

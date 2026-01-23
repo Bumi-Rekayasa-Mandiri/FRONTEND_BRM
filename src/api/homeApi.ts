@@ -5,6 +5,7 @@ import type { ServiceCategory } from "./serviceCategoryApi";
 
 export interface ArticleHomeItem {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   type: "news" | "release";
