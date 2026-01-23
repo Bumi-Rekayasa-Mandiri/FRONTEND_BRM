@@ -79,7 +79,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="bg-brm-maroon py-5 border-t border-[#5a1e1b]">
+      <div className="bg-gradient-to-r from-brm-maroon to-brm-maroon-2 py-5 border-t border-[#5a1e1b]">
         <div className="container mx-auto px-6 flex flex-col items-center gap-3 text-center">
           <a
             href="https://www.instagram.com/kodekita.id/"
