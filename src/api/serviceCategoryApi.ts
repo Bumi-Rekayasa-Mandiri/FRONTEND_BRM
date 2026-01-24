@@ -20,6 +20,7 @@ export interface ServiceItem {
   excerpt?: string;
   description?: string;
   thumbnail?: string;
+  gallery: string[];
   projects_count?: number;
   category?: { name: string; slug: string };
   projects?: ProjectItem[];

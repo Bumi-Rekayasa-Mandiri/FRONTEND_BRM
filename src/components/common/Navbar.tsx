@@ -33,13 +33,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 transition-all duration-300 font-jakarta bg-white/95 backdrop-blur-md shadow-sm py-1 md:py-1.5">
+    <nav className="fixed top-0 w-full z-50 transition-all duration-300 font-jakarta bg-white/95 backdrop-blur-md shadow-sm py-1 md:py-1">
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
         <Link to="/" className="flex items-center gap-3">
           <img
             src="/images/logo-brm.png"
             alt="Bumi Rekayasa Mandiri"
-            className="h-14 md:h-20 w-auto object-contain transition-all duration-300"
+            className="h-16 md:h-26 w-auto object-contain transition-all duration-300"
           />
         </Link>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[15px] font-semibold tracking-wide transition-all duration-300 relative pb-1 ${
+              className={`text-[18px] font-bold tracking-wide transition-all duration-300 relative pb-1 ${
                 isActive(link.path)
                   ? "text-brm-maroon"
                   : "text-brm-maroon/80 hover:text-brm-maroon"
