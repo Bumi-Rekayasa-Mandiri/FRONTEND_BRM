@@ -38,7 +38,7 @@ const SECONDARY_OFFICES = [
 
 const Contact = () => {
   return (
-    <main className="w-full font-sans">
+    <main className="w-full">
       <section className="relative h-125 bg-linear-to-r from-brm-green to-brm-green-2 text-white flex items-center">
         <img
           src="/images/contact-img-1.png"
