@@ -229,20 +229,20 @@ const About = () => {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {certificates.map((item) => (
             <div key={item.id} className="flex flex-col items-center px-4">
               <img
                 src={item.thumbnail}
                 alt={item.title}
-                className="h-48 w-full object-cover mb-2 hover:scale-[1.03] transition shadow-lg mb-6"
+                className="h-24 md:h-48 w-full object-cover mb-2 hover:scale-[1.03] transition shadow-lg mb-6"
               />
               
               <div className="flex flex-col items-center text-center">
-                <h3 className="font-bold text-lg text-brm-green mb-1">
+                <h3 className="font-bold text-sm md:text-lg text-brm-green mb-1">
                   {item.title}
                 </h3>
-                <p className="text-sm text-brm-green mb-2">
+                <p className="text-xs md:text-lg text-brm-green mb-2">
                   {item.issued_by} • {item.issued_year}
                 </p>
               </div>
