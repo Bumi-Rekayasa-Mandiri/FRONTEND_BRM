@@ -1,13 +1,31 @@
-import { CheckCircle as CheckIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  CheckCircle as CheckIcon,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { certificateApi } from "../../api/certificateApi";
 import type { CertificateItem } from "../../api/certificateApi";
 
-const About = () => {
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return isMobile;
+};
+
+const About = () => {
   const [certificates, setCertificates] = useState<CertificateItem[]>([]);
   const [loadingCertificates, setLoadingCertificates] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev === certificates.length - 1 ? 0 : prev + 1));
@@ -18,240 +36,282 @@ const About = () => {
   };
 
   useEffect(() => {
-      const fetchCertificates = async () => {
-        try {
-          const data = await certificateApi.getAllCertificates();
-          setCertificates(data);
-          if (data.length > 0) setActiveIndex(Math.floor(data.length / 2));
-        } catch (error) {
-          console.error("Failed to fetch certificates:", error);
-        } finally {
-          setLoadingCertificates(false);
-        }
-      };
-      fetchCertificates();
-    }, []);
+    const fetchCertificates = async () => {
+      try {
+        const data = await certificateApi.getAllCertificates();
+        setCertificates(data);
+        if (data.length > 0) setActiveIndex(Math.floor(data.length / 2));
+      } catch (error) {
+        console.error("Failed to fetch certificates:", error);
+      } finally {
+        setLoadingCertificates(false);
+      }
+    };
+    fetchCertificates();
+  }, []);
+
+  const getTranslateX = () => {
+    const cardWidth = isMobile ? 280 : 320;
+    const centerOffset = isMobile ? 140 : 160;
+    return `translateX(calc(50% - ${activeIndex * cardWidth + centerOffset}px))`;
+  };
 
   return (
-    <main className="w-full">
-      <section className="h-[250px] md:h-[350px] lg:h-[350px] bg-gradient-to-l from-white to-brm-beige-2 flex items-center pt-16 md:pt-24 lg:pt-24 py-4">
+    <main className="w-full font-jakarta">
+      <section className="h-62.5 md:h-87.5 lg:h-87.5 bg-linear-to-l from-white to-brm-beige-2 flex items-center pt-16 md:pt-24 lg:pt-24 py-4">
         <img
-          src="/images/logo-brm-2.png" 
+          src="/images/logo-brm-2.png"
           alt="Logo BRM"
-          className="h-32 md:h-40 lg:h-40 mx-auto"
+          className="h-32 md:h-40 lg:h-40 mx-auto object-contain"
         />
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
-        <div className="flex gap-6">
-            <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
-              Who We Are
-            </h1>
-          <div className="flex-1 h-[1.5px] bg-[#C92D29] mt-6"></div>  
+        <div className="flex gap-6 items-center">
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-linear-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
+            Who We Are
+          </h1>
+          <div className="flex-1 h-[1.5px] bg-[#C92D29] mt-[-8px]"></div>
         </div>
-          
-        <p className="text-justify text-black">
-          Bumi Rekayasa Mandiri adalah kontraktor yang secara legal dan kompetensi sudah memenuhi syarat untuk mendukung bisnis anda
-          dari desain sampai konstruksi didukung software 3D serta tenaga ahli Struktur, Beton, M/E juga smart 
-          building agar dapat bersaing di industri 4.0 dengan memperhatikan SDG's dan safety sebagai pilar utama.
-          Jasa Sipil , Konstruksi dan Kelistrikan (Mechanical & Electrical), Smart Building, IoT, Smart Factory.
-          Mencakup beragam bidang kerja mulai dari umum, mekanik, kelistrikan, dan jasa layanan kontraktor.
+
+        <p className="text-justify text-black leading-relaxed">
+          Bumi Rekayasa Mandiri adalah kontraktor yang secara legal dan
+          kompetensi sudah memenuhi syarat untuk mendukung bisnis anda dari
+          desain sampai konstruksi didukung software 3D serta tenaga ahli
+          Struktur, Beton, M/E juga smart building agar dapat bersaing di
+          industri 4.0 dengan memperhatikan SDG's dan safety sebagai pilar
+          utama. Jasa Sipil, Konstruksi dan Kelistrikan (Mechanical &
+          Electrical), Smart Building, IoT, Smart Factory. Mencakup beragam
+          bidang kerja mulai dari umum, mekanik, kelistrikan, dan jasa layanan
+          kontraktor.
         </p>
-      
-        <div className="flex flex-col md:flex-row lg:flex-row mt-8 justify-between items-center">
-          <div className="max-w-xl font-medium text-white rounded-full py-2 px-10 shadow-md mb-4 bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition">
-            <CheckIcon className="w-5 h-5 text-white inline mr-4" />
-            <span>Quality Driven</span>
-          </div>
 
-          <div className="max-w-xl font-medium text-white rounded-full py-2 px-10 shadow-md mb-4 bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition">
-            <CheckIcon className="w-5 h-5 text-white inline mr-4" />
-            <span>Professional Team</span>
-          </div>
-
-          <div className="max-w-xl font-medium text-white rounded-full py-2 px-10 shadow-md mb-4 bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition">
-            <CheckIcon className="w-5 h-5 text-white inline mr-4" />
-            <span>Safety First</span>
-          </div>
-
-          <div className="max-w-xl font-medium text-white rounded-full py-2 px-10 shadow-md mb-4 bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition">
-            <CheckIcon className="w-5 h-5 text-white inline mr-4" />
-            <span>Sustainable Development</span>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          {[
+            "Quality Driven",
+            "Professional Team",
+            "Safety First",
+            "Sustainable Development",
+          ].map((text, idx) => (
+            <div
+              key={idx}
+              className="font-medium text-white rounded-full py-2 px-6 shadow-md bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition flex items-center justify-center"
+            >
+              <CheckIcon className="w-5 h-5 text-white mr-3 flex-shrink-0" />
+              <span className="whitespace-nowrap">{text}</span>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="pt-2 pb-12 md:pt-6 md:pb-24 flex flex-row gap-16">
-        <div className="md:pl-40 lg:pl-40 py-4 md:py-16 px-6 max-w-2xl mx-auto gap-12 flex flex-col">
+      <section className="pt-2 pb-12 md:pt-6 md:pb-24 flex flex-col lg:flex-row gap-16">
+        <div className="lg:pl-40 py-4 md:py-16 px-6 max-w-2xl mx-auto gap-12 flex flex-col">
           <div>
-            <div className="flex gap-6">
-                <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
-                  Our Vision
-                </h1>
-              <div className="flex-1 h-[1.5px] bg-[#C92D29] mt-6"></div>  
+            <div className="flex gap-6 items-center">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
+                Our Vision
+              </h1>
+              <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
             <p className="text-justify text-black">
-              Membangun Indonesia dari sisi 
-              <span className="font-semibold"> infrastruktur yang terjamin mutunya</span>  dan ramah lingkungan serta 
-              berkontribusi pada <span className="font-semibold">SDGs (Sustainable Development Goals)</span>.
+              Membangun Indonesia dari sisi
+              <span className="font-semibold">
+                {" "}
+                infrastruktur yang terjamin mutunya
+              </span>{" "}
+              dan ramah lingkungan serta berkontribusi pada{" "}
+              <span className="font-semibold">
+                SDGs (Sustainable Development Goals)
+              </span>
+              .
             </p>
           </div>
 
           <div>
-            <div className="flex gap-6">
-                <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
-                  Our Mission
-                </h1>
-              <div className="flex-1 h-[1.5px] bg-[#C92D29] mt-6"></div>  
+            <div className="flex gap-6 items-center">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-[#772824] to-[#C92D29] bg-clip-text text-transparent whitespace-nowrap">
+                Our Mission
+              </h1>
+              <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
             <p className="text-justify text-black">
-              <span className="font-semibold">Memuaskan konsumen</span> dengan berkarya di bidang <span className="font-semibold">sipil, konstruksi, dan infrastruktur menuju Industri 4.0 </span>
-              melalui layanan bermutu, tepat waktu, harga bersaing, mengutamakan keselamatan (safety), serta ramah lingkungan.
+              <span className="font-semibold">Memuaskan konsumen</span> dengan
+              berkarya di bidang{" "}
+              <span className="font-semibold">
+                sipil, konstruksi, dan infrastruktur menuju Industri 4.0{" "}
+              </span>
+              melalui layanan bermutu, tepat waktu, harga bersaing, mengutamakan
+              keselamatan (safety), serta ramah lingkungan.
             </p>
           </div>
         </div>
 
-        <div className="hidden md:block lg:block relative h-auto w-full">
+        <div className="hidden lg:block relative h-auto w-full min-h-100">
           <img
             src="/images/about-img-1.png"
-            alt="About Us Image" 
-            className="right-0 absolute inset-0 h-full w-full"
+            alt="About Us Image"
+            className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-white/0 to-white/100"></div>
+          <div className="absolute inset-0 bg-linear-to-l from-white/0 to-white"></div>
         </div>
       </section>
 
       <section className="relative h-auto w-full bg-brm-green pt-16 pb-24 px-4 md:px-6 text-white overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-25 pointer-events-none"
           style={{
             backgroundImage: `url('/images/about-img-2.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            mixBlendMode: 'overlay' 
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            mixBlendMode: "overlay",
           }}
         ></div>
 
         <div className="relative z-10 mx-auto md:mx-36 max-w-7xl">
-          <div className="flex flex-col gap-4 items-center md:mb-4">
+          <div className="flex flex-col gap-4 items-center mb-8 md:mb-12">
             <img
               src="/images/license-icon.png"
               alt="License Icon"
-              className="w-24 h-24"
+              className="w-20 h-20 md:w-24 md:h-24 object-contain"
             />
             <h1 className="text-2xl md:text-4xl font-bold">Our Certificates</h1>
           </div>
 
           {loadingCertificates ? (
-            <p className="text-center text-white/80">Loading certificates...</p>
+            <div className="flex justify-center py-10">
+              <p className="text-white/80 animate-pulse">
+                Loading certificates...
+              </p>
+            </div>
           ) : certificates.length === 0 ? (
-            <p className="text-center text-white/80">No certificates available</p>
+            <p className="text-center text-white/80">
+              No certificates available
+            </p>
           ) : (
             <div className="relative w-full">
-              
-              <button 
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-20 z-20 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20"
-              >
-                <ChevronLeft className="w-4 h-4 md:w-8 md:h-8" />
-              </button>
-
-              <div className="relative h-[380px] md:h-[450px] overflow-hidden">
-                <div 
-                  className="flex items-center transition-transform duration-500 ease-out h-full"
-                  style={{
-
-                    transform: `translateX(calc(50% - ${
-                      window.innerWidth < 768 
-                      ? (activeIndex * 280) + 140 
-                      : (activeIndex * 320) + 160
-                    }px))` 
-                  }}
+              <div className="relative">
+                <button
+                  aria-label="Previous slide"
+                  onClick={prevSlide}
+                  className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 z-30 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20 backdrop-blur-sm"
                 >
-                  {certificates.map((item, index) => {
-                    const isActive = index === activeIndex;
+                  <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
 
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => setActiveIndex(index)}
-                        className={`flex-shrink-0 w-[280px] md:w-[320px] px-4 transition-all duration-500 cursor-pointer flex flex-col items-center ${
-                          isActive ? "scale-105 md:scale-110 opacity-100" : "scale-90 opacity-40"
-                        }`}
-                      >
-                        {item.thumbnail && (
-                          <img
-                            src={item.thumbnail}
-                            alt={item.title}
-                            className="h-40 md:h-56 w-auto shadow-2xl mb-6 object-cover"
-                          />
-                        )}
-                        
-                        <div className={`text-center transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0"}`}>
-                          <h3 className="font-bold text-base md:text-lg leading-tight px-2">{item.title}</h3>
-                          <p className="text-xs md:text-sm text-white/80 mt-1">
-                            {item.issued_by} • {item.issued_year}
-                          </p>
+                <button
+                  aria-label="Next slide"
+                  onClick={nextSlide}
+                  className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 z-30 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20 backdrop-blur-sm"
+                >
+                  <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+
+                <div className="relative h-96 md:h-125 overflow-hidden">
+                  <div
+                    className="flex items-center transition-transform duration-500 ease-out h-full"
+                    style={{ transform: getTranslateX() }}
+                  >
+                    {certificates.map((item, index) => {
+                      const isActive = index === activeIndex;
+                      return (
+                        <div
+                          key={item.id}
+                          onClick={() => setActiveIndex(index)}
+                          className={`flex-shrink-0 w-[280px] md:w-[320px] px-4 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center ${
+                            isActive
+                              ? "scale-105 md:scale-110 opacity-100 z-10"
+                              : "scale-90 opacity-40 blur-[1px] hover:opacity-60"
+                          }`}
+                        >
+                          {item.thumbnail ? (
+                            <img
+                              src={item.thumbnail}
+                              alt={item.title}
+                              loading="lazy"
+                              className="h-48 md:h-64 w-auto shadow-2xl mb-4 object-contain bg-white rounded-lg"
+                            />
+                          ) : (
+                            <div className="h-48 md:h-64 w-50 bg-white/10 flex items-center justify-center mb-4 rounded-lg">
+                              <span className="text-xs text-white/50">
+                                No Image
+                              </span>
+                            </div>
+                          )}
+
+                          <div
+                            className={`text-center transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0"}`}
+                          >
+                            <h3 className="font-bold text-base md:text-lg leading-tight px-2">
+                              {item.title}
+                            </h3>
+                            <p className="text-xs md:text-sm text-white/80 mt-1">
+                              {item.issued_by}{" "}
+                              {item.issued_year ? `• ${item.issued_year}` : ""}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
-              <button 
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-20 z-20 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20"
-              >
-                <ChevronRight className="w-4 h-4 md:w-8 md:h-8" />
-              </button>
-
-              <div className="flex justify-center gap-1.5">
+              <div className="flex justify-center gap-2 mt-4">
                 {certificates.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
                     className={`h-2 transition-all rounded-full ${
-                      index === activeIndex ? "bg-white w-8" : "bg-white/30 w-2"
+                      index === activeIndex
+                        ? "bg-white w-8"
+                        : "bg-white/30 w-2 hover:bg-white/50"
                     }`}
                   />
                 ))}
               </div>
 
-              <div className="mt-4 md:mt-8 max-w-4xl mx-auto px-4">
-                <p className="opacity-90 leading-relaxed text-center md:text-center text-justify">
-                  {certificates[activeIndex]?.description}
-                </p>
+              <div className="mt-6 md:mt-8 max-w-3xl mx-auto px-4 min-h-15 text-center">
+                <div
+                  className="opacity-90 leading-relaxed text-sm md:text-base [&>p]:mb-2 [&>h2]:font-bold [&>h2]:text-lg [&>h2]:mb-2"
+                  dangerouslySetInnerHTML={{
+                    __html: certificates[activeIndex]?.description || "",
+                  }}
+                />
               </div>
             </div>
           )}
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <section className="max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <h2 className="text-2xl font-bold mb-8 text-center text-brm-green">
+          All Certificates
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {certificates.map((item) => (
-            <div key={item.id} className="flex flex-col items-center px-4">
-              <img
-                src={item.thumbnail}
-                alt={item.title}
-                className="h-24 md:h-48 w-full object-cover mb-2 hover:scale-[1.03] transition shadow-lg mb-6"
-              />
-              
+            <div key={item.id} className="flex flex-col items-center group">
+              <div className="relative overflow-hidden rounded-lg shadow-md mb-4 bg-white p-2">
+                <img
+                  src={item.thumbnail || "/images/placeholder.png"}
+                  alt={item.title}
+                  loading="lazy"
+                  className="h-32 md:h-48 w-full object-contain transform group-hover:scale-105 transition duration-300"
+                />
+              </div>
+
               <div className="flex flex-col items-center text-center">
-                <h3 className="font-bold text-sm md:text-lg text-brm-green mb-1">
+                <h3 className="font-bold text-sm md:text-base text-gray-800 mb-1 leading-tight group-hover:text-[#C92D29] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs md:text-lg text-brm-green mb-2">
-                  {item.issued_by} • {item.issued_year}
-                </p>
+                <p className="text-xs text-gray-500">{item.issued_by}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
-
     </main>
   );
 };
+
 export default About;
