@@ -1,5 +1,3 @@
-import { Mail, MessageCircle } from "lucide-react";
-
 const BUSINESS_HOURS = [
   { day: "Monday - Friday", time: "9 AM - 5 PM", isClosed: false },
   { day: "Saturday", time: "10 AM - 2 PM", isClosed: false },

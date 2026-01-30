@@ -16,7 +16,7 @@ const ServiceCard = ({ category }: ServiceCardProps) => {
         <img
           src={category.thumbnail || "/images/placeholder-service.jpg"}
           alt={category.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 scale-110 group-hover:scale-120"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               "https://placehold.co/600x400?text=No+Image";
