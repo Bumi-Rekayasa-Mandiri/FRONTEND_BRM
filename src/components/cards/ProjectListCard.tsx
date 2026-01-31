@@ -7,12 +7,6 @@ interface ProjectListCardProps {
   isReversed: boolean;
 }
 
-const stripHtml = (html: string) => {
-  const tmp = document.createElement("DIV");
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || "";
-};
-
 const ProjectListCard = ({ project, isReversed }: ProjectListCardProps) => {
   return (
     <div
@@ -45,11 +39,12 @@ const ProjectListCard = ({ project, isReversed }: ProjectListCardProps) => {
           </p>
         )}
 
-        <p className="text-gray-600 leading-relaxed mb-8 line-clamp-4 text-justify">
-          {project.description
-            ? stripHtml(project.description)
-            : "Deskripsi proyek belum tersedia."}
-        </p>
+        <div
+          className="text-gray-600 leading-relaxed mb-8 line-clamp-4 text-justify prose prose-sm max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: project.description || "Deskripsi proyek belum tersedia.",
+          }}
+        />
 
         <Link
           to={`/projects/${project.slug}`}

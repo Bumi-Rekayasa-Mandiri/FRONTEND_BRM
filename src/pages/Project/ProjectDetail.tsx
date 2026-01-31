@@ -5,12 +5,6 @@ import { projectApi } from "../../api/projectApi";
 import type { ProjectDetailItem } from "../../api/projectApi";
 import Loader from "../../components/common/Loader";
 
-const stripHtml = (html: string) => {
-  const tmp = document.createElement("DIV");
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || "";
-};
-
 const ProjectDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -140,12 +134,15 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        <div className="w-full mb-16 text-gray-600 leading-relaxed text-lg text-justify space-y-4">
-          <p>
-            {project.description
-              ? stripHtml(project.description)
-              : "Tidak ada deskripsi detail."}
-          </p>
+        <div className="w-full mb-16">
+          {project.description ? (
+            <div
+              className="w-full prose prose-lg max-w-none text-gray-600 space-y-3 leading-relaxed text-base md:text-lg text-justify"
+              dangerouslySetInnerHTML={{ __html: project.description }}
+            />
+          ) : (
+            <p className="text-gray-500 italic">Tidak ada deskripsi detail.</p>
+          )}
         </div>
 
         {project.gallery && project.gallery.length > 0 && (

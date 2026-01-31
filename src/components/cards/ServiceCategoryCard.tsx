@@ -29,10 +29,14 @@ const ServiceCard = ({ category }: ServiceCardProps) => {
       </div>
 
       <div className="p-4 pt-6">
-        <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-          {category.description ||
-            "Layanan profesional dari PT. Bumi Rekayasa Mandiri."}
-        </p>
+        <div
+          className="text-gray-600 text-sm line-clamp-2 mb-4 prose prose-sm max-w-none text-justify leading-relaxed"
+          dangerouslySetInnerHTML={{
+            __html:
+              category.description ||
+              "Layanan profesional dari PT. Bumi Rekayasa Mandiri.",
+          }}
+        />
 
         <div className="flex items-center text-brm-maroon text-sm font-semibold group-hover:gap-2 transition-all">
           Lihat Detail <ArrowRight size={16} className="ml-1" />

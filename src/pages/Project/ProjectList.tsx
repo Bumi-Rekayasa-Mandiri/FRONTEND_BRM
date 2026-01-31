@@ -52,10 +52,6 @@ const ProjectList = () => {
     );
   }
 
-  const descriptionParagraphs = service.description
-    ? service.description.split("\n").filter((p) => p.trim() !== "")
-    : [];
-
   return (
     <div className="w-full font-jakarta bg-white pt-24 md:pt-32 pb-20">
       <div className="container mx-auto px-6 md:px-12">
@@ -85,7 +81,7 @@ const ProjectList = () => {
             {service.name}
           </h1>
 
-          <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg mb-12">
+          <div className="relative w-full h-75 md:h-125 rounded-2xl overflow-hidden shadow-lg mb-12">
             <img
               src={service.thumbnail || "/images/placeholder-service.jpg"}
               alt={service.name}
@@ -93,11 +89,10 @@ const ProjectList = () => {
             />
           </div>
 
-          <div className="w-full mx-auto text-left text-gray-600 leading-relaxed space-y-6 mb-12 text-lg">
-            {descriptionParagraphs.map((paragraph, idx) => (
-              <p key={idx}>{paragraph}</p>
-            ))}
-          </div>
+          <div
+            className="w-full mx-auto text-left text-gray-600 leading-relaxed space-y-6 mb-12 text-base md:text-lg prose prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: service.description || "" }}
+          />
 
           {service.gallery && service.gallery.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mx-auto">

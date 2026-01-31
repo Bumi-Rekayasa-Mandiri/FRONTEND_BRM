@@ -27,10 +27,15 @@ const ServiceListCard = ({ service }: ServiceListCardProps) => {
           {service.name}
         </h3>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-4 md:mb-6 grow line-clamp-3 text-justify">
-          {service.excerpt ||
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel justo vel ligula malesuada tincidunt."}
-        </p>
+        <div
+          className="text-gray-600 text-sm leading-relaxed mb-4 md:mb-6 grow line-clamp-3 text-justify prose prose-sm max-w-none"
+          dangerouslySetInnerHTML={{
+            __html:
+              service.excerpt ||
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel justo vel ligula malesuada tincidunt.",
+          }}
+        />
+
         <div className="mt-auto">
           <div className="flex justify-end mb-4 md:mb-6">
             <Link
