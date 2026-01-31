@@ -371,7 +371,7 @@ const Home = () => {
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.id}-${index}`}
-                className="flex flex-col items-center justify-center min-w-[120px] md:min-w-[160px] opacity-70 hover:opacity-100 transition-opacity duration-300"
+                className="flex flex-col items-center justify-center min-w-[120px] md:min-w-[160px] opacity-100 transition-opacity duration-300"
               >
                 <img
                   src={client.logo || "/images/placeholder-logo.png"}
