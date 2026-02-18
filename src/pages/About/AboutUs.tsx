@@ -28,11 +28,15 @@ const About = () => {
   const isMobile = useIsMobile();
 
   const nextSlide = () => {
-    setActiveIndex((prev) => (prev === certificates.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) =>
+      prev === certificates.length - 1 ? 0 : prev + 1
+    );
   };
 
   const prevSlide = () => {
-    setActiveIndex((prev) => (prev === 0 ? certificates.length - 1 : prev - 1));
+    setActiveIndex((prev) =>
+      prev === 0 ? certificates.length - 1 : prev - 1
+    );
   };
 
   useEffect(() => {
@@ -40,7 +44,8 @@ const About = () => {
       try {
         const data = await certificateApi.getAllCertificates();
         setCertificates(data);
-        if (data.length > 0) setActiveIndex(Math.floor(data.length / 2));
+        if (data.length > 0)
+          setActiveIndex(Math.floor(data.length / 2));
       } catch (error) {
         console.error("Failed to fetch certificates:", error);
       } finally {
@@ -53,7 +58,9 @@ const About = () => {
   const getTranslateX = () => {
     const cardWidth = isMobile ? 280 : 320;
     const centerOffset = isMobile ? 140 : 160;
-    return `translateX(calc(50% - ${activeIndex * cardWidth + centerOffset}px))`;
+    return `translateX(calc(50% - ${
+      activeIndex * cardWidth + centerOffset
+    }px))`;
   };
 
   return (
@@ -75,15 +82,10 @@ const About = () => {
         </div>
 
         <p className="text-justify text-black leading-relaxed">
-          Bumi Rekayasa Mandiri adalah kontraktor yang secara legal dan
-          kompetensi sudah memenuhi syarat untuk mendukung bisnis anda dari
-          desain sampai konstruksi didukung software 3D serta tenaga ahli
-          Struktur, Beton, M/E juga smart building agar dapat bersaing di
-          industri 4.0 dengan memperhatikan SDG's dan safety sebagai pilar
-          utama. Jasa Sipil, Konstruksi dan Kelistrikan (Mechanical &
-          Electrical), Smart Building, IoT, Smart Factory. Mencakup beragam
-          bidang kerja mulai dari umum, mekanik, kelistrikan, dan jasa layanan
-          kontraktor.
+          PT. Bumi Rekayasa Mandiri adalah perusahaan kontraktor yang bergerak di bidang jasa konstruksi, 
+          berkomitmen untuk menghadirkan solusi pembangunan yang berkualitas, efisien, dan berkelanjutan. 
+          Dengan dukungan sumber daya manusia yang profesional serta pengalaman dalam menangani berbagai proyek konstruksi, 
+          kami hadir sebagai mitra terpercaya bagi klien.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
@@ -113,17 +115,11 @@ const About = () => {
               </h1>
               <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
-            <p className="text-justify text-black">
-              Membangun Indonesia dari sisi
-              <span className="font-semibold">
-                {" "}
-                infrastruktur yang terjamin mutunya
-              </span>{" "}
-              dan ramah lingkungan serta berkontribusi pada{" "}
-              <span className="font-semibold">
-                SDGs (Sustainable Development Goals)
-              </span>
-              .
+            <p className="text-justify text-black leading-relaxed">
+              Menjadi perusahaan konstruksi terkemuka yang presisi,
+              profesional, dan berkelanjutan dengan fondasi teknik yang kuat,
+              serta berkontribusi dalam pembangunan infrastruktur Indonesia
+              yang berkualitas, cerdas, dan ramah lingkungan.
             </p>
           </div>
 
@@ -134,14 +130,14 @@ const About = () => {
               </h1>
               <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
-            <p className="text-justify text-black">
-              <span className="font-semibold">Memuaskan konsumen</span> dengan
-              berkarya di bidang{" "}
-              <span className="font-semibold">
-                sipil, konstruksi, dan infrastruktur menuju Industri 4.0{" "}
-              </span>
-              melalui layanan bermutu, tepat waktu, harga bersaing, mengutamakan
-              keselamatan (safety), serta ramah lingkungan.
+
+            <p className="text-justify text-black leading-relaxed">
+              1. Menyelenggarakan jasa konstruksi berkualitas tinggi <br />
+              2. Menerapkan prinsip Green Building secara berkelanjutan <br />
+              3. Mengintegrasikan seluruh divisi konstruksi, sipil, dan MEP <br />
+              4. Memanfaatkan inovasi dan teknologi konstruksi modern <br />
+              5. Menjaga integritas, profesionalitas, dan kepercayaan klien <br />
+              6. Berperan aktif dalam pembangunan nasional yang bertanggung jawab
             </p>
           </div>
         </div>
@@ -155,6 +151,8 @@ const About = () => {
           <div className="absolute inset-0 bg-linear-to-l from-white/0 to-white"></div>
         </div>
       </section>
+
+      {/* === Certificates Section tetap lengkap di bawah ini (tidak diubah sama sekali) === */}
 
       <section className="relative h-auto w-full bg-brm-green pt-16 pb-24 px-4 md:px-6 text-white overflow-hidden">
         <div
@@ -174,7 +172,9 @@ const About = () => {
               alt="License Icon"
               className="w-20 h-20 md:w-24 md:h-24 object-contain"
             />
-            <h1 className="text-2xl md:text-4xl font-bold">Our Certificates</h1>
+            <h1 className="text-2xl md:text-4xl font-bold">
+              Our Certificates
+            </h1>
           </div>
 
           {loadingCertificates ? (
@@ -239,14 +239,18 @@ const About = () => {
                           )}
 
                           <div
-                            className={`text-center transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0"}`}
+                            className={`text-center transition-opacity duration-500 ${
+                              isActive ? "opacity-100" : "opacity-0"
+                            }`}
                           >
                             <h3 className="font-bold text-base md:text-lg leading-tight px-2">
                               {item.title}
                             </h3>
                             <p className="text-xs md:text-sm text-white/80 mt-1">
                               {item.issued_by}{" "}
-                              {item.issued_year ? `• ${item.issued_year}` : ""}
+                              {item.issued_year
+                                ? `• ${item.issued_year}`
+                                : ""}
                             </p>
                           </div>
                         </div>
@@ -275,7 +279,8 @@ const About = () => {
                 <div
                   className="opacity-90 leading-relaxed text-sm md:text-base [&>p]:mb-2 [&>h2]:font-bold [&>h2]:text-lg [&>h2]:mb-2"
                   dangerouslySetInnerHTML={{
-                    __html: certificates[activeIndex]?.description || "",
+                    __html:
+                      certificates[activeIndex]?.description || "",
                   }}
                 />
               </div>
@@ -290,10 +295,16 @@ const About = () => {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {certificates.map((item) => (
-            <div key={item.id} className="flex flex-col items-center group">
+            <div
+              key={item.id}
+              className="flex flex-col items-center group"
+            >
               <div className="relative overflow-hidden rounded-lg shadow-md mb-4 bg-white p-2">
                 <img
-                  src={item.thumbnail || "/images/placeholder.png"}
+                  src={
+                    item.thumbnail ||
+                    "/images/placeholder.png"
+                  }
                   alt={item.title}
                   loading="lazy"
                   className="h-32 md:h-48 w-full object-contain transform group-hover:scale-105 transition duration-300"
@@ -304,7 +315,9 @@ const About = () => {
                 <h3 className="font-bold text-sm md:text-base text-gray-800 mb-1 leading-tight group-hover:text-[#C92D29] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs text-gray-500">{item.issued_by}</p>
+                <p className="text-xs text-gray-500">
+                  {item.issued_by}
+                </p>
               </div>
             </div>
           ))}

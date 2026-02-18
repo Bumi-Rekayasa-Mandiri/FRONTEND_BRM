@@ -17,6 +17,7 @@ export interface ProjectListItem {
   location?: string;
   thumbnail?: string;
   description?: string;
+  gallery?: string[];
   service?: { name: string; slug: string };
   client?: { name: string };
 }

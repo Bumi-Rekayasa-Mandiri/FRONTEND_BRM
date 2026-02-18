@@ -76,9 +76,7 @@ const Home = () => {
       ? data.articles.latest_news
       : data.articles.news_release;
 
-  const duplicatedClients = data.clients
-    ? [...data.clients, ...data.clients]
-    : [];
+  const duplicatedClients = data.clients ?? [];
 
   return (
     <div className="w-full font-jakarta">
@@ -94,14 +92,13 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
-          <div className="max-w-3xl text-white space-y-6 pt-20">
+          <div className="max-w-3xl text-white space-y pt-20">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight animate-fade-in-up">
-              Building Reliable Infrastructure For Indonesia
+              Kontraktor Industri Terpercaya untuk Proyek Pabrik & Fasilitas Produksi
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl animate-fade-in-up delay-100">
-              PT. Bumi Rekayasa Mandiri delivers integrated construction and
-              engineering solutions with a strong commitment to safety, quality,
-              and sustainability.
+              Spesialis pembangunan dan renovasi pabrik, gudang dan bangunan industri dengan 
+              standar keselamatan tinggi, timeline terkontrol, dan kualitas terjamin.
             </p>
             <div className="pt-4 animate-fade-in-up delay-200">
               <Link
@@ -366,8 +363,9 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="w-full overflow-hidden py-4" ref={clientScrollRef}>
-          <div className="flex items-center gap-16 md:gap-24 animate-marquee whitespace-nowrap px-4">
+        <div className="container mx-auto px-6 md:px-12">
+        <div className="overflow-hidden py-4" ref={clientScrollRef}>
+          <div className="flex items-center gap-16 md:gap-24 animate-marquee whitespace-nowrap">
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.id}-${index}`}
@@ -383,6 +381,7 @@ const Home = () => {
               </div>
             ))}
           </div>
+        </div>
         </div>
 
         <div className="text-center mt-8 md:hidden">
