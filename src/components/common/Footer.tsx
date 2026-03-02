@@ -16,16 +16,33 @@ export default function Footer() {
               />
             </div>
 
-            <div className="max-w-md">
-              <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
-                Ruko Dharmawangsa Blok D-8/DC, Grand Taruna{" "}
-                <br className="hidden md:block" />
-                Karawang, Jawa Barat, Indonesia
-              </p>
+            <div className="max-w-md space-y-3">
+              {/* Lokasi 1 */}
+                <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
+                  Head Office:  
+                <br />
+                  Ruko Dharmawangsa Blok D-8/DC, Grand Taruna  
+                <br />
+                  Karawang, Jawa Barat, Indonesia
+                </p>
+
+              {/* Lokasi 2 */}
+                <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
+                  Kawasan Industri KIIC East Ecospace II No. 2  
+                <br />
+                  Karawang, Jawa Barat, Indonesia
+                </p>
+
+              {/* Lokasi 3 */}
+                <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
+                  Ejip Kawasan EJIP  
+                <br />
+                  Cikarang, Jalan Cimandiri 1
+                </p>
             </div>
           </div>
 
-          <div className="w-full md:w-auto min-w-75 flex flex-col items-start">
+          <div className="w-full md:w-auto min-w-75 flex flex-col items-start md:mt-16">
             <h3 className="text-xl md:text-2xl font-bold text-brm-maroon mb-4 border-b-2 border-brm-maroon/30 pb-1 px-2 md:px-0 inline-block self-center md:self-start">
               More Information
             </h3>
