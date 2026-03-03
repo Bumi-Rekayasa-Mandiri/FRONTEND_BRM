@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Users } from "lucide-react";
+import { Users, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { clientApi } from "../../api/clientApi";
 import type { ClientItem } from "../../api/clientApi";
@@ -54,7 +54,6 @@ const Clients = () => {
       {/* CLIENT LIST */}
       <div className="max-w-7xl mx-auto px-6 py-20 space-y-16">
         {clients.map((client) => {
-          // 🔥 Ambil maksimal 2 gambar dari SEMUA project
           const allImages = client.projects
             .flatMap((project) => [
               project.thumbnail,
@@ -85,13 +84,26 @@ const Clients = () => {
 
               {/* TEXT */}
               <div>
-                <h2 className="text-2xl font-semibold text-[#5a1e1b] mb-4">
+                <h2 className="text-3xl font-bold text-[#7a1e16] mb-3">
                   {client.name}
                 </h2>
 
+                {/* WEBSITE STYLE LIKE IMAGE */}
+                {client.website && (
+                  <a
+                    href={client.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-[#7a1e16] transition-colors text-base font-medium"
+                  >
+                    Kunjungi Website
+                    <ExternalLink size={16} />
+                  </a>
+                )}
+
                 {client.projects.length > 0 && (
                   <>
-                    <p className="text-sm font-semibold text-gray-500 mb-3">
+                    <p className="text-sm font-semibold text-gray-500 mt-6 mb-3">
                       Projects:
                     </p>
 
@@ -100,7 +112,7 @@ const Clients = () => {
                         <li key={project.id}>
                           <Link
                             to={`/projects/${project.slug}`}
-                            className="hover:text-[#5a1e1b] transition-colors"
+                            className="hover:text-[#7a1e16] transition-colors"
                           >
                             {project.title}
                           </Link>
@@ -111,7 +123,7 @@ const Clients = () => {
                 )}
               </div>
 
-              {/* 🔥 PROJECT IMAGES FIXED */}
+              {/* PROJECT IMAGES */}
               <div className="flex w-full overflow-hidden rounded-2xl">
                 {allImages.map((img, index) => (
                   <div

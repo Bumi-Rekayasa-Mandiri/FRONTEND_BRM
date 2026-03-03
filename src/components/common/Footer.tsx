@@ -30,14 +30,14 @@ export default function Footer() {
                 <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
                   Kawasan Industri KIIC East Ecospace II No. 2  
                 <br />
-                  Karawang, Jawa Barat, Indonesia
+                  Karawang 41361, Jawa Barat, Indonesia
                 </p>
 
               {/* Lokasi 3 */}
                 <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
-                  Ejip Kawasan EJIP  
+                  Cikarang - Ejip 
                 <br />
-                  Cikarang, Jalan Cimandiri 1
+                  Kawasan EJIP Jalan Cimandiri 1
                 </p>
             </div>
           </div>
