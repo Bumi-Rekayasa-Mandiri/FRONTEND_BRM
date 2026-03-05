@@ -83,36 +83,33 @@ const Home = () => {
   return (
     <div className="w-full font-jakarta">
       <section className="relative h-[80vh] min-h-125 w-full overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/images/bg-hero-home.png"
-            alt="Hero Background"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-black/70 to-transparent"></div>
-          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30"></div>
-        </div>
+  <div className="absolute inset-0">
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full object-cover"
+    >
+      <source src="/images/Hero Video.mp4" type="video/mp4" />
+    </video>
 
-        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
-          <div className="max-w-3xl text-white space-y-6 pt-20">
-            <h1 className="text-4xl md:text-4xl font-bold leading-tight animate-fade-in-up">
-              Kontraktor Industri Terpercaya untuk Proyek Pabrik & Fasilitas Produksi
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl animate-fade-in-up delay-100">
-              Spesialis pembangunan dan renovasi pabrik, gudang dan bangunan industri dengan standar keselamatan tinggi, 
-              timeline terkontrol, dan kualitas terjamin.
-            </p>
-            <div className="pt-4 animate-fade-in-up delay-200">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300 font-medium"
-              >
-                See More <ArrowRight size={18} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="absolute inset-0 bg-linear-to-r from-black/70 to-transparent"></div>
+    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30"></div>
+  </div>
+
+  {/* BUTTON POJOK KIRI BAWAH */}
+  <div className="relative z-10 h-full">
+    <div className="absolute bottom-12 left-12 animate-fade-in-up">
+      <Link
+        to="/about"
+        className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300 font-medium"
+      >
+        See More <ArrowRight size={18} />
+      </Link>
+    </div>
+  </div>
+</section>
 
       {currentProject && (
         <section className="bg-[#fcfbf9] py-16 relative">
