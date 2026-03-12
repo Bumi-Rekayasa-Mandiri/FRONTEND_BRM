@@ -28,4 +28,9 @@ export const clientApi = {
     const response = await apiClient.get("/clients?projects_limit=4");
     return extractData(response);
   },
+
+  getClientById: async (id: string): Promise<ClientItem> => {
+    const response = await apiClient.get(`/clients/${id}`);
+    return response.data.data;
+  },
 };

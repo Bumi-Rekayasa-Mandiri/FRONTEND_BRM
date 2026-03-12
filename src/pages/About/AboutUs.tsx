@@ -8,13 +8,12 @@ import { certificateApi } from "../../api/certificateApi";
 import type { CertificateItem } from "../../api/certificateApi";
 
 const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -53,7 +52,9 @@ const About = () => {
   const getTranslateX = () => {
     const cardWidth = isMobile ? 280 : 320;
     const centerOffset = isMobile ? 140 : 160;
-    return `translateX(calc(50% - ${activeIndex * cardWidth + centerOffset}px))`;
+    return `translateX(calc(50% - ${
+      activeIndex * cardWidth + centerOffset
+    }px))`;
   };
 
   return (
@@ -75,15 +76,12 @@ const About = () => {
         </div>
 
         <p className="text-justify text-black leading-relaxed">
-          Bumi Rekayasa Mandiri adalah kontraktor yang secara legal dan
-          kompetensi sudah memenuhi syarat untuk mendukung bisnis anda dari
-          desain sampai konstruksi didukung software 3D serta tenaga ahli
-          Struktur, Beton, M/E juga smart building agar dapat bersaing di
-          industri 4.0 dengan memperhatikan SDG's dan safety sebagai pilar
-          utama. Jasa Sipil, Konstruksi dan Kelistrikan (Mechanical &
-          Electrical), Smart Building, IoT, Smart Factory. Mencakup beragam
-          bidang kerja mulai dari umum, mekanik, kelistrikan, dan jasa layanan
-          kontraktor.
+          PT. Bumi Rekayasa Mandiri adalah perusahaan kontraktor yang bergerak
+          di bidang jasa konstruksi, berkomitmen untuk menghadirkan solusi
+          pembangunan yang berkualitas, efisien, dan berkelanjutan. Dengan
+          dukungan sumber daya manusia yang profesional serta pengalaman dalam
+          menangani berbagai proyek konstruksi, kami hadir sebagai mitra
+          terpercaya bagi klien.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
@@ -95,9 +93,9 @@ const About = () => {
           ].map((text, idx) => (
             <div
               key={idx}
-              className="font-medium text-white rounded-full py-2 px-6 shadow-md bg-gradient-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition flex items-center justify-center"
+              className="font-medium text-white rounded-full py-2 px-6 shadow-md bg-linear-to-r from-brm-green to-brm-green-2 hover:scale-[1.03] transition flex items-center justify-center"
             >
-              <CheckIcon className="w-5 h-5 text-white mr-3 flex-shrink-0" />
+              <CheckIcon className="w-5 h-5 text-white mr-3 shrink-0" />
               <span className="whitespace-nowrap">{text}</span>
             </div>
           ))}
@@ -113,17 +111,11 @@ const About = () => {
               </h1>
               <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
-            <p className="text-justify text-black">
-              Membangun Indonesia dari sisi
-              <span className="font-semibold">
-                {" "}
-                infrastruktur yang terjamin mutunya
-              </span>{" "}
-              dan ramah lingkungan serta berkontribusi pada{" "}
-              <span className="font-semibold">
-                SDGs (Sustainable Development Goals)
-              </span>
-              .
+            <p className="text-justify text-black leading-relaxed">
+              Menjadi perusahaan konstruksi terkemuka yang presisi, profesional,
+              dan berkelanjutan dengan fondasi teknik yang kuat, serta
+              berkontribusi dalam pembangunan infrastruktur Indonesia yang
+              berkualitas, cerdas, dan ramah lingkungan.
             </p>
           </div>
 
@@ -134,14 +126,16 @@ const About = () => {
               </h1>
               <div className="flex-1 h-[1.5px] bg-[#C92D29]"></div>
             </div>
-            <p className="text-justify text-black">
-              <span className="font-semibold">Memuaskan konsumen</span> dengan
-              berkarya di bidang{" "}
-              <span className="font-semibold">
-                sipil, konstruksi, dan infrastruktur menuju Industri 4.0{" "}
-              </span>
-              melalui layanan bermutu, tepat waktu, harga bersaing, mengutamakan
-              keselamatan (safety), serta ramah lingkungan.
+
+            <p className="text-justify text-black leading-relaxed">
+              1.Menyelenggarakan jasa konstruksi berkualitas tinggi <br />
+              2.Menerapkan prinsip Green Building secara berkelanjutan <br />
+              3.Mengintegrasikan seluruh divisi konstruksi, sipil, dan MEP{" "}
+              <br />
+              4.Memanfaatkan inovasi dan teknologi konstruksi modern <br />
+              5.Menjaga integritas, profesionalitas, dan kepercayaan klien{" "}
+              <br />
+              6.Berperan aktif dalam pembangunan nasional yang bertanggung jawab
             </p>
           </div>
         </div>
@@ -217,7 +211,7 @@ const About = () => {
                         <div
                           key={item.id}
                           onClick={() => setActiveIndex(index)}
-                          className={`flex-shrink-0 w-[280px] md:w-[320px] px-4 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center ${
+                          className={`shrink-0 w-70 md:w-[320px] px-4 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center ${
                             isActive
                               ? "scale-105 md:scale-110 opacity-100 z-10"
                               : "scale-90 opacity-40 blur-[1px] hover:opacity-60"
@@ -239,7 +233,9 @@ const About = () => {
                           )}
 
                           <div
-                            className={`text-center transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0"}`}
+                            className={`text-center transition-opacity duration-500 ${
+                              isActive ? "opacity-100" : "opacity-0"
+                            }`}
                           >
                             <h3 className="font-bold text-base md:text-lg leading-tight px-2">
                               {item.title}

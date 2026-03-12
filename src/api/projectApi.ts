@@ -22,8 +22,8 @@ export interface ProjectListItem {
 }
 
 export interface ProjectDetailItem extends ProjectListItem {
-  completion_date?: string; // Format dari backend: "January 20, 2026"
-  gallery: string[]; // Array URL
+  completion_date?: string;
+  gallery: string[];
   client?: { name: string; website?: string };
 }
 

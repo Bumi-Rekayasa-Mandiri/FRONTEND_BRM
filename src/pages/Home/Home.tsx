@@ -299,7 +299,7 @@ const Home = () => {
               return (
                 <div
                   key={service.id}
-                  className="relative group overflow-hidden rounded-xl bg-gray-800 border border-white/10 aspect-video md:aspect-square lg:aspect-[4/3]"
+                  className="relative group overflow-hidden rounded-xl bg-gray-800 border border-white/10 aspect-video md:aspect-square lg:aspect-4/3"
                 >
                   <img
                     src={service.thumbnail || "/images/placeholder-service.jpg"}
@@ -371,7 +371,7 @@ const Home = () => {
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.id}-${index}`}
-                className="flex flex-col items-center justify-center min-w-[120px] md:min-w-[160px] opacity-100 transition-opacity duration-300"
+                className="flex flex-col items-center justify-center min-w-30 md:min-w-40 opacity-100 transition-opacity duration-300"
               >
                 <img
                   src={client.logo || "/images/placeholder-logo.png"}

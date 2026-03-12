@@ -29,7 +29,7 @@ const Clients = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full font-jakarta bg-white">
-      <div className="relative h-[50vh] min-h-100 w-full overflow-hidden bg-[#0e3b28]">
+      <div className="relative h-[40vh] min-h-70 w-full overflow-hidden bg-[#0e3b28]">
         <img
           src="/images/bg-hero-servicelist.png"
           alt="Clients Hero"
@@ -37,117 +37,125 @@ const Clients = () => {
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#0e3b28]/80 to-[#0e3b28] z-10"></div>
 
-        <div className="relative z-20 container mx-auto px-6 md:px-12 h-full flex flex-col items-center justify-center text-center pt-32">
-          <div className="mb-6 p-4 rounded-2xl border-2 border-white/20 animate-fade-in-up backdrop-blur-sm bg-white/5">
-            <Users size={48} className="text-white" />
+        <div className="relative z-20 container mx-auto px-6 md:px-12 h-full flex flex-col items-center justify-center text-center pt-24">
+          <div className="mb-4 p-3 rounded-2xl border-2 border-white/20 backdrop-blur-sm bg-white/5">
+            <Users size={40} className="text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight animate-fade-in-up delay-100">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">
             Our Clients
           </h1>
-          <p className="text-gray-200 text-lg font-light max-w-2xl animate-fade-in-up delay-200">
+          <p className="text-gray-200 text-base font-light max-w-xl">
             We have worked with leading companies and organizations across
             multiple sectors in Indonesia.
           </p>
         </div>
       </div>
 
-      <div className="py-20 md:py-28">
-        <div className="container mx-auto px-6 md:px-12 flex flex-col gap-24 md:gap-32">
+      <div className="py-16 md:py-20">
+        <div className="container mx-auto px-6 md:px-12 flex flex-col divide-y divide-gray-100">
           {clients.map((client) => (
             <div
               key={client.id}
-              className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 border-b border-gray-100 pb-20 last:border-0 last:pb-0"
+              className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 py-12 first:pt-0 last:pb-0"
             >
-              <div className="w-full lg:w-1/3 flex flex-col justify-center items-start space-y-6">
-                <div className="h-32 md:h-40 w-auto mb-2">
+              <div className="flex flex-row lg:flex-row items-start gap-6 w-full lg:w-1/2">
+                <div className="w-36 h-36 shrink-0 flex items-center justify-center">
                   {client.logo ? (
                     <img
                       src={client.logo}
                       alt={`${client.name} logo`}
-                      className="h-full w-auto object-contain object-left"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
-                    <div className="h-full w-48 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 font-bold text-xl border border-gray-200">
+                    <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 font-bold text-sm border border-gray-200 text-center px-2">
                       {client.name}
                     </div>
                   )}
                 </div>
 
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#5a1e1b] mb-2">
+                <div className="flex flex-col gap-2 flex-1">
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-800">
                     {client.name}
                   </h2>
+
                   {client.website && (
                     <a
                       href={client.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-sm text-gray-500 hover:text-[#5a1e1b] transition-colors gap-1 mb-4"
+                      className="inline-flex items-center text-xs text-gray-500 hover:text-[#5a1e1b] transition-colors gap-1"
                     >
-                      Kunjungi Website <ExternalLink size={14} />
+                      Kunjungi Website <ExternalLink size={12} />
                     </a>
                   )}
-                </div>
 
-                {client.projects.length > 0 ? (
-                  <div className="space-y-4 w-full">
-                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-                      Selected Projects:
-                    </h4>
-                    <ul className="space-y-3">
-                      {client.projects.map((project) => (
-                        <li key={project.id} className="group">
-                          <Link
-                            to={`/projects/${project.slug}`}
-                            className="flex items-start gap-3 hover:bg-gray-50 p-2 -ml-2 rounded-lg transition-colors"
+                  {client.projects.length > 0 ? (
+                    <div className="mt-1">
+                      <p className="text-sm font-semibold text-gray-500 mb-2">
+                        Projects:
+                      </p>
+                      <ul className="space-y-1.5 list-disc list-inside">
+                        {client.projects.map((project) => (
+                          <li
+                            key={project.id}
+                            className="text-sm text-gray-600 leading-snug"
                           >
-                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#5a1e1b] shrink-0 group-hover:scale-125 transition-transform" />
-                            <div>
-                              <span className="text-gray-700 font-medium group-hover:text-[#5a1e1b] transition-colors block">
-                                {project.title}
-                              </span>
+                            <Link
+                              to={`/projects/${project.slug}`}
+                              className="hover:text-[#5a1e1b] transition-colors"
+                            >
+                              {project.title}
                               {project.description && (
-                                <p className="text-sm text-gray-500 line-clamp-1 mt-0.5">
-                                  {project.description.replace(
-                                    /<[^>]*>?/gm,
-                                    "",
-                                  )}
-                                </p>
+                                <span className="text-gray-400 ml-1">
+                                  —{" "}
+                                  {project.description
+                                    .replace(/<[^>]*>?/gm, "")
+                                    .slice(0, 60)}
+                                  {project.description.replace(/<[^>]*>?/gm, "")
+                                    .length > 60
+                                    ? "..."
+                                    : ""}
+                                </span>
                               )}
-                            </div>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <p className="text-gray-400 italic">
-                    Belum ada proyek yang dipublikasikan untuk klien ini.
-                  </p>
-                )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p className="text-gray-400 italic text-sm">
+                      Belum ada proyek yang dipublikasikan untuk klien ini.
+                    </p>
+                  )}
 
-                {client.projects.length > 0 && (
-                  <Link
-                    to={`/projects`}
-                    className="mt-4 inline-flex items-center gap-2 text-[#5a1e1b] font-semibold hover:gap-3 transition-all"
-                  >
-                    View All Projects <ArrowRight size={18} />
-                  </Link>
-                )}
+                  {client.projects.length > 0 && (
+                    <Link
+                      to={`/clients/${client.id}`}
+                      className="mt-2 inline-flex items-center gap-1.5 text-[#5a1e1b] text-sm font-semibold hover:gap-2.5 transition-all"
+                    >
+                      View All Projects <ArrowRight size={15} />
+                    </Link>
+                  )}
+                </div>
               </div>
 
-              <div className="w-full lg:w-2/3 max-w-4xl">
-                {" "}
+              <div className="w-full lg:w-1/2">
                 {client.projects.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                  <div
+                    className={`grid gap-3 w-full ${
+                      client.projects.length === 1
+                        ? "grid-cols-1"
+                        : "grid-cols-2"
+                    }`}
+                  >
                     {client.projects.slice(0, 2).map((project) => (
                       <Link
                         to={`/projects/${project.slug}`}
                         key={project.id}
-                        className={`relative rounded-2xl overflow-hidden shadow-lg group block aspect-video ${
+                        className={`relative rounded-xl overflow-hidden shadow-md group block ${
                           client.projects.length === 1
-                            ? "md:col-span-2 aspect-21/9"
-                            : ""
+                            ? "aspect-video"
+                            : "aspect-video"
                         }`}
                       >
                         <img
@@ -156,11 +164,11 @@ const Clients = () => {
                             "/images/placeholder-project.jpg"
                           }
                           alt={project.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <span className="text-white font-semibold text-lg px-6 text-center">
+                          <span className="text-white font-semibold text-sm px-4 text-center">
                             {project.title}
                           </span>
                         </div>
@@ -168,7 +176,7 @@ const Clients = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="w-full h-48 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-200">
+                  <div className="w-full h-40 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 text-sm">
                     No Project Images Available
                   </div>
                 )}

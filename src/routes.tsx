@@ -10,6 +10,7 @@ const ProjectList = lazy(() => import("./pages/Project/ProjectList"));
 const ArticleDetail = lazy(() => import("./pages/Articles/ArticleDetail"));
 const Gallery = lazy(() => import("./pages/Project/Gallery"));
 const ProjectDetail = lazy(() => import("./pages/Project/ProjectDetail"));
+const ClientDetail = lazy(() => import("./pages/Clients/ClientDetail"));
 const Clients = lazy(() => import("./pages/Clients/Clients"));
 const About = lazy(() => import("./pages/About/AboutUs"));
 const Contact = lazy(() => import("./pages/About/Contact"));
@@ -88,11 +89,24 @@ const router = createBrowserRouter([
       },
       {
         path: "clients",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Clients />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Clients />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ClientDetail />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "about",
