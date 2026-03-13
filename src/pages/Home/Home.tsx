@@ -72,24 +72,28 @@ const Home = () => {
 
   return (
     <div className="w-full font-jakarta">
-      <section className="relative w-full h-[100vh] min-h-[500px] overflow-hidden bg-black flex items-center">
+      <section className="relative w-full aspect-video lg:aspect-auto lg:h-[100vh] lg:min-h-[500px] overflow-hidden bg-black flex items-center">
         <div className="absolute inset-0 w-full h-full">
           <video autoPlay muted onEnded={() => setIsVideoFinished(true)} playsInline preload="metadata" poster="/images/bg-hero-home.png" className="w-full h-full object-cover object-center">
             <source src="/video/video_home.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-linear-to-r from-black/40 via-black/10 to-transparent transition-opacity duration-1000"></div>
           <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/10 transition-opacity duration-1000"></div>
+          <div className={`absolute inset-0 bg-black/60 transition-opacity duration-1000 ${isVideoFinished ? 'opacity-70' : 'opacity-0'}`}></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
-          <div className="max-w-3xl text-white space-y-6 pt-20">
-            <h1 className={`text-4xl md:text-6xl font-bold leading-tight ${isVideoFinished ? 'animate-fade-in-up' : 'opacity-0'}`}>Building Reliable Infrastructure For Indonesia</h1>
-            <p className={`text-lg md:text-xl text-gray-200 font-light max-w-2xl ${isVideoFinished ? 'animate-fade-in-up delay-100' : 'opacity-0'}`}>
+        <div className="relative z-10 container mx-auto px-4 md:px-6 h-full flex flex-col justify-center">
+          <div className="max-w-3xl text-white space-y-1.5 sm:space-y-4 md:space-y-6 pt-10 sm:pt-14 md:pt-20">
+            <h1 className={`text-lg sm:text-3xl md:text-6xl font-bold leading-tight ${isVideoFinished ? 'animate-fade-in-up' : 'opacity-0'}`}>Building Reliable Infrastructure For Indonesia</h1>
+            <p className={`text-[10px] sm:text-sm md:text-xl text-gray-200 font-light max-w-2xl leading-relaxed ${isVideoFinished ? 'animate-fade-in-up delay-100' : 'opacity-0'}`}>
               PT. Bumi Rekayasa Mandiri delivers integrated construction and engineering solutions with a strong commitment to safety, quality, and sustainability.
             </p>
-            <div className={`pt-4 ${isVideoFinished ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
-              <Link to="/about" className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300 font-medium">
-                See More <ArrowRight size={18} />
+            <div className={`pt-1 sm:pt-2 md:pt-4 ${isVideoFinished ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 sm:px-6 sm:py-2 md:px-8 md:py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#0e3b28] transition-all duration-300 font-medium text-[10px] sm:text-sm md:text-base"
+              >
+                See More <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
               </Link>
             </div>
           </div>
@@ -104,21 +108,21 @@ const Home = () => {
                 <button
                   onClick={prevProject}
                   aria-label="Previous Project"
-                  className="absolute top-1/2 -left-4 md:-left-16 -translate-y-1/2 z-20 p-3 rounded-full bg-white border border-[#5a1e1b] text-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white transition-all shadow-lg"
+                  className="absolute top-1/2 -left-4 md:-left-16 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white border border-[#5a1e1b] text-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white transition-all shadow-lg"
                 >
-                  <ChevronLeft size={24} />
+                  <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
                 </button>
 
-                <div className="relative h-75 md:h-112.5 rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative h-50 md:h-75 lg:h-112.5 rounded-2xl overflow-hidden shadow-xl">
                   <img src={currentProject.thumbnail || '/images/placeholder-project.jpg'} alt={currentProject.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
                 </div>
 
                 <button
                   onClick={nextProject}
                   aria-label="Next Project"
-                  className="absolute top-1/2 -right-4 md:-right-16 -translate-y-1/2 z-20 p-3 rounded-full bg-white border border-[#5a1e1b] text-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white transition-all shadow-lg"
+                  className="absolute top-1/2 -right-4 md:-right-16 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white border border-[#5a1e1b] text-[#5a1e1b] hover:bg-[#5a1e1b] hover:text-white transition-all shadow-lg"
                 >
-                  <ChevronRight size={24} />
+                  <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
                 </button>
 
                 <div className="flex justify-center gap-2 mt-6">
@@ -134,7 +138,7 @@ const Home = () => {
               </div>
 
               <div className="w-full lg:w-2/5 space-y-6">
-                <h2 className="text-4xl md:text-5xl font-bold text-[#5a1e1b] leading-tight">{currentProject.title}</h2>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#5a1e1b] leading-tight">{currentProject.title}</h2>
                 <h3 className="text-xl font-semibold text-[#8a2f2b]">{currentProject.subtitle || 'Featured Project'}</h3>
 
                 <div
