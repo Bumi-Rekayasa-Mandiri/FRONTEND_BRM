@@ -29,7 +29,7 @@ const Clients = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full font-jakarta bg-white">
-      <div className="relative h-[40vh] min-h-70 w-full overflow-hidden bg-[#0e3b28]">
+      <div className="relative h-[50vh] min-h-70 w-full overflow-hidden bg-[#0e3b28]">
         <img
           src="/images/bg-hero-servicelist.png"
           alt="Clients Hero"
