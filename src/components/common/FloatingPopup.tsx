@@ -56,10 +56,10 @@ const FloatingPopup = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Visit our ${social.name}`}
-            className={`group flex items-center gap-3 pl-4 pr-5 py-2.5 bg-white rounded-full shadow-lg border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl ${social.color}`}
+            className={`group flex items-center gap-4 pl-5 pr-6 py-4 w-56 bg-white rounded-full shadow-lg border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl ${social.color}`}
           >
             <span className={`shrink-0 transition-colors duration-300 ${social.textColor}`}>{social.icon}</span>
-            <span className={`text-sm font-semibold whitespace-nowrap transition-colors duration-300 ${social.textColor}`}>
+            <span className={`text-base font-semibold whitespace-nowrap transition-colors duration-300 ${social.textColor}`}>
               {social.label}
             </span>
           </a>
@@ -69,15 +69,18 @@ const FloatingPopup = () => {
       {/* Main Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-brm-green hover:opacity-90 text-white rounded-full shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
+        className="flex items-center gap-3 pl-5 pr-6 py-4 bg-brm-green hover:opacity-90 text-white rounded-full shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
         aria-label="Toggle contact menu"
       >
-        <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>
-          <MessageCircle size={28} />
+        <span className="relative w-7 h-7 flex items-center justify-center shrink-0">
+          <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>
+            <MessageCircle size={28} />
+          </span>
+          <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>
+            <X size={28} />
+          </span>
         </span>
-        <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>
-          <X size={28} />
-        </span>
+        <span className="text-base font-semibold whitespace-nowrap">Kontak Kami</span>
       </button>
     </div>
   );
