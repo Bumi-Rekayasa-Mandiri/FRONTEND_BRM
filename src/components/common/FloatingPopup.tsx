@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Instagram, Linkedin, MessageCircle, X } from 'lucide-react';
+import { Instagram, Linkedin, MessageCircle, X, FileText } from 'lucide-react';
 
 const WhatsAppIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -13,6 +13,7 @@ const FloatingPopup = () => {
   const socialLinks = [
     {
       name: 'WhatsApp',
+      label: 'Hubungi Kami',
       url: 'https://wa.me/62811964060',
       icon: <WhatsAppIcon />,
       color: 'hover:bg-[#25D366]',
@@ -20,6 +21,7 @@ const FloatingPopup = () => {
     },
     {
       name: 'Instagram',
+      label: 'Instagram',
       url: 'https://instagram.com/bumirekayasamandiri',
       icon: <Instagram size={24} />,
       color: 'hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500',
@@ -27,9 +29,18 @@ const FloatingPopup = () => {
     },
     {
       name: 'LinkedIn',
+      label: 'LinkedIn',
       url: 'https://www.linkedin.com/company/pt-bumi-rekayasa-mandiri/?originalSubdomain=id',
       icon: <Linkedin size={24} />,
       color: 'hover:bg-[#0077b5]',
+      textColor: 'group-hover:text-white text-gray-600',
+    },
+    {
+      name: 'Company Profile',
+      label: 'Company Profile',
+      url: '/pdf/compro-brm.pdf',
+      icon: <FileText size={24} />,
+      color: 'hover:bg-brm-green',
       textColor: 'group-hover:text-white text-gray-600',
     },
   ];
@@ -37,7 +48,7 @@ const FloatingPopup = () => {
   return (
     <div className="fixed bottom-8 right-6 md:right-10 flex flex-col items-center gap-4 z-[90]">
       {/* Expanding Social Links Wrapper */}
-      <div className={`flex flex-col gap-4 items-center transition-all duration-300 origin-bottom ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-8 pointer-events-none'}`}>
+      <div className={`flex flex-col gap-3 items-end transition-all duration-300 origin-bottom ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-8 pointer-events-none'}`}>
         {socialLinks.map((social, index) => (
           <a
             key={index}
@@ -45,12 +56,11 @@ const FloatingPopup = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Visit our ${social.name}`}
-            className={`relative group flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-white rounded-full shadow-lg border border-gray-100 transition-all duration-300 hover:scale-110 hover:shadow-xl ${social.color}`}
+            className={`group flex items-center gap-3 pl-4 pr-5 py-2.5 bg-white rounded-full shadow-lg border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl ${social.color}`}
           >
-            <span className={`transition-colors duration-300 ${social.textColor}`}>{social.icon}</span>
-
-            <span className="absolute right-full mr-4 px-3 py-1 bg-gray-800 text-white text-sm font-medium rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-md">
-              {social.name}
+            <span className={`shrink-0 transition-colors duration-300 ${social.textColor}`}>{social.icon}</span>
+            <span className={`text-sm font-semibold whitespace-nowrap transition-colors duration-300 ${social.textColor}`}>
+              {social.label}
             </span>
           </a>
         ))}
