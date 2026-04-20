@@ -12,7 +12,7 @@ const SECONDARY_OFFICES = [
     mapsUrl: 'https://maps.google.com/?q=KIIC+East+Ecospace+II+No.2+Karawang+41361+Jawa+Barat+Indonesia',
   },
   {
-    title: 'Side Office',
+    title: 'Site Office',
     address: 'Cikarang - Ejip, Kawasan EJIP Jalan Cimandiri 1',
     qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=Kawasan EJIP Jalan Cimandiri 1 Cikarang',
     mapsUrl: 'https://maps.google.com/?q=Kawasan+EJIP+Jalan+Cimandiri+1+Cikarang',
@@ -21,29 +21,56 @@ const SECONDARY_OFFICES = [
 
 const Contact = () => {
   return (
-    <main className="w-full">
-      <section className="relative h-125 bg-gradient-to-r from-brm-green to-brm-green-2 text-white flex items-center">
-        <img src="/images/contact-img-1.png" alt="Main Office Building" className="absolute inset-0 w-full h-full object-cover opacity-25 md:opacity-100" />
+    <main className="w-full ">
+      <section className="relative bg-gradient-to-r from-brm-green to-brm-green-2 text-white pt-20">
+        <img src="/images/contact-img-1.png" alt="Main Office Building" className="absolute inset-0 w-full h-full object-cover opacity-25 md:opacity-60" />
+        <div className="absolute inset-0 bg-black/50" />
 
-        <div className="absolute inset-0 bg-black/40 md:bg-gradient-to-r md:from-black/10 md:to-black/60"></div>
-
-        <div className="relative z-10 container mx-auto px-6 py-12">
-          <div className="md:w-2/3 lg:w-1/2 md:ml-auto flex items-center justify-center md:justify-start">
-            <a href="https://maps.app.goo.gl/ABBJNmrr3hY8EC657" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left group cursor-pointer" title="Buka di Google Maps">
-              <img src="/images/location-icon.png" alt="Location Icon" className="h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-110" />
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-4 group-hover:underline underline-offset-4 transition-all">Main Office</h1>
-                <p className="max-w-md text-lg leading-relaxed text-white/90 group-hover:text-white transition-colors mb-6">
-                  Ruko Dharmawangsa Blok D-8/DC, <br />
-                  Grand Taruna Karawang, Jawa Barat, Indonesia
-                </p>
-              </div>
-              <div className="hidden md:block flex justify-center md:justify-start">
+        <div className="relative z-10 container mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <a href="https://maps.app.goo.gl/ABBJNmrr3hY8EC657" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-4 text-left group cursor-pointer my-4" title="Buka di Google Maps">
+              <img src="/images/location-icon.png" alt="Location Icon" className="h-16 lg:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-110 shrink-0" />
+              <div className="flex flex-row items-center gap-4">
+                <div className="flex flex-col gap-2">
+                  <h1 className="text-2xl font-bold group-hover:underline underline-offset-4 transition-all">Main Office</h1>
+                  <p className="text-base leading-relaxed text-white/90 group-hover:text-white transition-colors">
+                    Ruko Dharmawangsa Blok D-8/DC, <br />
+                    Grand Taruna Karawang, Jawa Barat, Indonesia
+                  </p>
+                </div>
                 <img
                   src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=Ruko Dharmawangsa Blok D-8/DC Grand Taruna Karawang Jawa Barat Indonesia"
                   alt="QR Main Office"
-                  className="bg-white p-2 rounded-lg shadow-md w-28 h-28 md:w-32 md:h-32 object-contain"
+                  className="bg-white p-2 rounded-lg shadow-md w-24 h-24 object-contain shrink-0"
                 />
+              </div>
+            </a>
+
+            <a href={SECONDARY_OFFICES[0].mapsUrl} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-4 text-left group cursor-pointer" title={`Buka ${SECONDARY_OFFICES[0].title} di Google Maps`}>
+              <img src="/images/location-icon.png" alt="Location Icon" className="h-16 lg:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-110 shrink-0" />
+              <div className="flex flex-row items-center gap-4">
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-2xl font-bold group-hover:underline underline-offset-4 transition-all">{SECONDARY_OFFICES[0].title}</h2>
+                  <p className="text-base leading-relaxed text-white/90 group-hover:text-white transition-colors">{SECONDARY_OFFICES[0].address}</p>
+                </div>
+                <img src={SECONDARY_OFFICES[0].qrUrl} alt={`QR ${SECONDARY_OFFICES[0].title}`} className="bg-white p-2 rounded-lg shadow-md w-24 h-24 object-contain shrink-0" />
+              </div>
+            </a>
+
+            <a
+              href={SECONDARY_OFFICES[1].mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:col-span-2 lg:w-1/2 lg:mx-auto flex flex-row items-center gap-4 text-left group cursor-pointer"
+              title={`Buka ${SECONDARY_OFFICES[1].title} di Google Maps`}
+            >
+              <img src="/images/location-icon.png" alt="Location Icon" className="h-16 lg:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-110 shrink-0" />
+              <div className="flex flex-row items-center gap-4">
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-2xl font-bold group-hover:underline underline-offset-4 transition-all">{SECONDARY_OFFICES[1].title}</h2>
+                  <p className="text-base leading-relaxed text-white/90 group-hover:text-white transition-colors">{SECONDARY_OFFICES[1].address}</p>
+                </div>
+                <img src={SECONDARY_OFFICES[1].qrUrl} alt={`QR ${SECONDARY_OFFICES[1].title}`} className="bg-white p-2 rounded-lg shadow-md w-24 h-24 object-contain shrink-0" />
               </div>
             </a>
           </div>
@@ -61,50 +88,6 @@ const Contact = () => {
                 <p className={`text-lg font-medium underline underline-offset-4 ${item.isClosed ? 'text-brm-maroon-2' : 'text-brm-green'}`}>{item.time}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative h-135 bg-gradient-to-r from-brm-green-2 to-brm-green text-white">
-        <img src="/images/contact-img-3.png" alt="Contact Hero Image" className="absolute right-0 top-0 h-full w-full md:w-auto max-w-none object-cover opacity-25 md:opacity-100" />
-
-        <div className="absolute inset-0 bg-black/30">
-          <div className="relative z-10 container mx-auto px-6 h-full flex items-center">
-            <div className="space-y-12 w-full max-w-lg">
-              {SECONDARY_OFFICES.map((office, index) => {
-                const content = (
-                  <>
-                    <img src="/images/location-icon.png" alt="Location-Icon" className={`h-16 md:h-24 shrink-0 transition-transform duration-300 ${office.mapsUrl ? 'group-hover:scale-110' : ''}`} />
-                    <div className="flex flex-col flex-1 w-full">
-                      <h2 className={`text-2xl font-bold mb-2 transition-all ${office.mapsUrl ? 'group-hover:underline underline-offset-4' : ''}`}>{office.title}</h2>
-                      <p className="max-w-md text-gray-100 text-lg mb-4">{office.address}</p>
-                    </div>
-                      {office.qrUrl && (
-                        <div className="hidden md:block flex justify-center md:justify-start">
-                          <img src={office.qrUrl} alt={`QR ${office.title}`} className="bg-white p-2 rounded-lg shadow-md w-24 h-24 md:w-28 md:h-28 object-contain shrink-0" />
-                        </div>
-                      )}
-                  </>
-                );
-
-                return office.mapsUrl ? (
-                  <a
-                    key={index}
-                    href={office.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left group cursor-pointer"
-                    title={`Buka ${office.title} di Google Maps`}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div key={index} className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-                    {content}
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </section>
