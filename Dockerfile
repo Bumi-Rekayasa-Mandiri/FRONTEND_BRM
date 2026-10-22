@@ -1,5 +1,4 @@
-# Build Stage
-FROM node:22-alpine AS builder
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -11,11 +10,6 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
 
-# Serve Stage
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["pnpm", "preview", "--host", "0.0.0.0", "--port", "80"]
