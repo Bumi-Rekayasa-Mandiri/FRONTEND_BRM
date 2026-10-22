@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Instagram, Linkedin, MessageCircle, X, FileText } from 'lucide-react';
+import { Instagram, Linkedin, X, FileText } from 'lucide-react';
 
 const WhatsAppIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -69,18 +69,33 @@ const FloatingPopup = () => {
       {/* Main Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 pl-5 pr-6 py-4 bg-brm-green hover:opacity-90 text-white rounded-full shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
+        className="relative flex items-center cursor-pointer group focus:outline-none transition-transform duration-300 hover:scale-105 active:scale-95"
         aria-label="Toggle contact menu"
       >
-        <span className="relative w-7 h-7 flex items-center justify-center shrink-0">
-          <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>
-            <MessageCircle size={28} />
+        {/* Green Pill Body */}
+        <div className="flex items-center bg-brm-green hover:bg-[#093d20] transition-colors duration-300 pl-14 md:pl-16 pr-6 md:pr-7 py-3 md:py-3.5 rounded-full shadow-xl">
+          <span className="text-white font-bold text-lg md:text-xl tracking-normal whitespace-nowrap">
+            Contact Us
           </span>
-          <span className={`absolute transition-all duration-300 ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>
-            <X size={28} />
-          </span>
-        </span>
-        <span className="text-base font-semibold whitespace-nowrap">Kontak Kami</span>
+        </div>
+
+        {/* Circular Avatar Badge with Dark Green Ring on Left */}
+        <div className="absolute -left-2 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center shrink-0 drop-shadow-md">
+          <img
+            src="/images/contact-badge.svg"
+            alt="Customer Service"
+            className={`w-full h-full object-contain transition-all duration-300 ${
+              isOpen ? 'scale-0 opacity-0 rotate-90' : 'scale-100 opacity-100 rotate-0'
+            }`}
+          />
+          <div
+            className={`absolute inset-0 rounded-full bg-white border-4 md:border-[5px] border-brm-green flex items-center justify-center transition-all duration-300 ${
+              isOpen ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 -rotate-90'
+            }`}
+          >
+            <X className="w-6 h-6 md:w-7 md:h-7 text-brm-green stroke-[2.5]" />
+          </div>
+        </div>
       </button>
     </div>
   );

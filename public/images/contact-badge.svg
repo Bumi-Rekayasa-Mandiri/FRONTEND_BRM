@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <circle cx="96" cy="96" r="87.5" fill="#ffffff" stroke="#0D4C29" stroke-width="17" />
+  <!-- Head -->
+  <ellipse cx="95" cy="80.5" rx="21" ry="24" fill="#0D4C29" />
+  <!-- Headset band -->
+  <path d="M62 74 C62 45 76 35 95 35 C114 35 128 45 128 74" fill="none" stroke="#0D4C29" stroke-width="6" stroke-linecap="round" />
+  <!-- Ear pads -->
+  <rect x="57" y="66" width="8" height="17" rx="4" fill="#0D4C29" />
+  <rect x="125" y="66" width="8" height="17" rx="4" fill="#0D4C29" />
+  <!-- Mic boom -->
+  <path d="M127 78 C127 96 123 105 117 105" fill="none" stroke="#0D4C29" stroke-width="4.5" stroke-linecap="round" />
+  <circle cx="116" cy="105" r="4.5" fill="#0D4C29" />
+  <!-- Shoulders with V-neck -->
+  <path d="M54 146 C54 121 73 113.5 84 113.5 L95 131 L106 113.5 C117 113.5 136 121 136 146 Z" fill="#0D4C29" />
+</svg>
