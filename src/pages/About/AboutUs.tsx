@@ -185,17 +185,19 @@ const About = () => {
             <div className="relative w-full">
               <div className="relative">
                 <button
+                  type="button"
                   aria-label="Previous slide"
                   onClick={prevSlide}
-                  className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 z-30 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20 backdrop-blur-sm"
+                  className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 z-40 p-2 bg-white/10 hover:bg-white/20 active:scale-95 rounded-full transition-all border border-white/20 backdrop-blur-sm cursor-pointer select-none"
                 >
                   <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
                 </button>
 
                 <button
+                  type="button"
                   aria-label="Next slide"
                   onClick={nextSlide}
-                  className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 z-30 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20 backdrop-blur-sm"
+                  className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 z-40 p-2 bg-white/10 hover:bg-white/20 active:scale-95 rounded-full transition-all border border-white/20 backdrop-blur-sm cursor-pointer select-none"
                 >
                   <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
                 </button>

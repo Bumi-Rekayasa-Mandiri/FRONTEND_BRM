@@ -46,9 +46,15 @@ const FloatingPopup = () => {
   ];
 
   return (
-    <div className="fixed bottom-8 right-6 md:right-10 flex flex-col items-center gap-4 z-[90]">
+    <div className="fixed bottom-8 right-6 md:right-10 flex flex-col items-end gap-3 z-[90] pointer-events-none">
       {/* Expanding Social Links Wrapper */}
-      <div className={`flex flex-col gap-3 items-end transition-all duration-300 origin-bottom ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-8 pointer-events-none'}`}>
+      <div
+        className={`flex flex-col gap-3 items-end transition-all duration-300 origin-bottom ${
+          isOpen
+            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 scale-50 translate-y-8 pointer-events-none invisible'
+        }`}
+      >
         {socialLinks.map((social, index) => (
           <a
             key={index}
@@ -69,7 +75,7 @@ const FloatingPopup = () => {
       {/* Main Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center cursor-pointer group focus:outline-none transition-transform duration-300 hover:scale-105 active:scale-95"
+        className="pointer-events-auto relative flex items-center cursor-pointer group focus:outline-none transition-transform duration-300 hover:scale-105 active:scale-95"
         aria-label="Toggle contact menu"
       >
         {/* Green Pill Body */}
