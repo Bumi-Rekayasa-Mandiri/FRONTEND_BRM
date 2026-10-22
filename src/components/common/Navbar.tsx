@@ -56,7 +56,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 font-jakarta py-1 md:py-1 ${getNavBackground()}`}>
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center relative z-50">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/images/logo-brm.png" alt="Bumi Rekayasa Mandiri" className={`h-16 md:h-26 w-auto object-contain transition-all duration-300 ${isHome && !isScrolled ? 'opacity-0 invisible' : 'opacity-100 visible'}`} />
+          <img src="/images/logo-brm.png" alt="Bumi Rekayasa Mandiri" className={`h-20 md:h-32 lg:h-36 w-auto object-contain transition-all duration-300 ${isHome && !isScrolled ? 'opacity-0 invisible' : 'opacity-100 visible'}`} />
         </Link>
 
         <div className="hidden lg:flex items-center space-x-10">
