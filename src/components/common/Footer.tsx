@@ -1,84 +1,163 @@
-import { Mail, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#F5F2ED] font-jakarta mt-auto border-t border-[#E5E0D8]">
-      <div className="container mx-auto px-6 md:px-12 py-8 md:py-10">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-20">
-          <div className="w-full md:w-1/2 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="shrink-0">
-              <img
-                src="/images/logo-brm.png"
-                alt="PT. Bumi Rekayasa Mandiri"
-                className="h-18 md:h-44 w-auto object-contain"
-              />
+    <footer className="bg-[#EFE9E9] text-gray-800 font-jakarta mt-auto border-t border-[#E5DFDF]">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-12">
+          {/* Column 1: Logo & Company Description */}
+          <div className="w-full lg:w-[32%] space-y-5 flex flex-col items-start text-left">
+            <img
+              src="/images/logo-brm-2.png"
+              alt="PT. Bumi Rekayasa Mandiri"
+              className="h-20 md:h-24 w-auto object-contain"
+            />
+            <p className="text-sm md:text-[15px] text-gray-700 leading-relaxed text-left max-w-sm">
+              <strong className="font-bold text-gray-900">
+                PT. Bumi Rekayasa Mandiri
+              </strong>{" "}
+              adalah perusahaan kontraktor yang bergerak di bidang jasa konstruksi,
+              berkomitmen untuk menghadirkan solusi pembangunan yang berkualitas,
+              efisien, dan berkelanjutan.
+            </p>
+          </div>
+
+          {/* Column 2: More Information */}
+          <div className="w-full lg:w-auto shrink-0 space-y-5 flex flex-col items-start text-left">
+            <div className="border-b-2 border-[#782925] pb-1.5 inline-block">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#782925] tracking-tight">
+                More Information
+              </h3>
             </div>
 
-            <div className="max-w-md">
-              <p className="text-[#5A2D2C] text-base md:text-lg leading-relaxed font-medium">
-                Ruko Dharmawangsa Blok D-8/DC, Grand Taruna{" "}
-                <br className="hidden md:block" />
-                Karawang, Jawa Barat, Indonesia
-              </p>
+            <div className="space-y-4">
+              {/* Phone */}
+              <a
+                href="tel:+62811964060"
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                  <Phone size={20} className="fill-current" />
+                </div>
+                <div className="text-left">
+                  <span className="text-xs text-gray-600 font-medium block">
+                    Phone
+                  </span>
+                  <span className="text-sm md:text-base font-bold text-gray-900 group-hover:text-[#782925] transition-colors whitespace-nowrap">
+                    +62 811–964–060
+                  </span>
+                </div>
+              </a>
+
+              {/* Fax */}
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Phone size={20} className="fill-current" />
+                </div>
+                <div className="text-left">
+                  <span className="text-xs text-gray-600 font-medium block">
+                    Fax
+                  </span>
+                  <span className="text-sm md:text-base font-bold text-gray-900 whitespace-nowrap">
+                    (0267)8639837
+                  </span>
+                </div>
+              </div>
+
+              {/* Email 1 */}
+              <a
+                href="mailto:bumirekayasa.mandiri@gmail.com"
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                  <Mail size={20} />
+                </div>
+                <div className="text-left">
+                  <span className="text-xs text-gray-600 font-medium block">
+                    Email
+                  </span>
+                  <span className="text-sm md:text-base font-bold text-gray-900 group-hover:text-[#782925] transition-colors whitespace-nowrap">
+                    bumirekayasa.mandiri@gmail.com
+                  </span>
+                </div>
+              </a>
+
+              {/* Email 2 */}
+              <a
+                href="mailto:marketing@bumirekayasamandiri.co.id"
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                  <Mail size={20} />
+                </div>
+                <div className="text-left">
+                  <span className="text-xs text-gray-600 font-medium block">
+                    Email
+                  </span>
+                  <span className="text-sm md:text-base font-bold text-gray-900 group-hover:text-[#782925] transition-colors whitespace-nowrap">
+                    marketing@bumirekayasamandiri.co.id
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
 
-          <div className="w-full md:w-auto min-w-75 flex flex-col items-start">
-            <h3 className="text-xl md:text-2xl font-bold text-brm-maroon mb-4 border-b-2 border-brm-maroon/30 pb-1 px-2 md:px-0 inline-block self-center md:self-start">
-              More Information
-            </h3>
+          {/* Column 3: Location */}
+          <div className="w-full lg:w-[34%] space-y-5 flex flex-col items-start text-left">
+            <div className="border-b-2 border-[#782925] pb-1.5 inline-block">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#782925] tracking-tight">
+                Location
+              </h3>
+            </div>
 
-            <ul className="space-y-3 w-full max-w-xs md:w-auto">
-              <li>
-                <a
-                  href="https://wa.me/62811964060"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 group p-2 rounded-xl hover:bg-white/60 transition-all border border-transparent hover:border-[#E5E0D8]"
-                >
-                  <div className="h-9 w-9 rounded-full bg-brm-maroon text-white flex items-center justify-center shrink-0 shadow-md group-hover:bg-[#5a1e1b] transition-colors">
-                    <MessageCircle size={18} />
-                  </div>
-                  <span className="text-[#5A2D2C] text-base font-medium group-hover:text-brm-maroon">
-                    +62 811–964–060
-                  </span>
-                </a>
-              </li>
+            <div className="space-y-4">
+              {/* Main Office */}
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
+                  <MapPin size={20} />
+                </div>
+                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
+                  Ruko Dharmawangsa Blok D-8/DC, Grand Taruma Karawang, Jawa Barat,
+                  Indonesia
+                  <strong className="font-bold text-gray-900 block mt-1">
+                    (Main Office)
+                  </strong>
+                </p>
+              </div>
 
-              <li>
-                <a
-                  href="mailto:bumirekayasa.mandiri@gmail.com"
-                  className="flex items-center gap-4 group p-2 rounded-xl hover:bg-white/60 transition-all border border-transparent hover:border-[#E5E0D8]"
-                >
-                  <div className="h-9 w-9 rounded-full bg-brm-maroon text-white flex items-center justify-center shrink-0 shadow-md group-hover:bg-[#5a1e1b] transition-colors">
-                    <Mail size={18} />
-                  </div>
-                  <span className="text-[#5A2D2C] text-base font-medium group-hover:text-brm-maroon">
-                    bumirekayasa.mandiri@gmail.com
-                  </span>
-                </a>
-              </li>
+              {/* Branch Office */}
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
+                  <MapPin size={20} />
+                </div>
+                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
+                  KIIC East Ecospace II No.2 Karawang 41361 Jawa Barat Indonesia
+                  <strong className="font-bold text-gray-900 block mt-1">
+                    (Branch Office)
+                  </strong>
+                </p>
+              </div>
 
-              <li>
-                <a
-                  href="mailto:bumirekayasa.mandiri@yahoo.com"
-                  className="flex items-center gap-4 group p-2 rounded-xl hover:bg-white/60 transition-all border border-transparent hover:border-[#E5E0D8]"
-                >
-                  <div className="h-9 w-9 rounded-full bg-brm-maroon text-white flex items-center justify-center shrink-0 shadow-md group-hover:bg-[#5a1e1b] transition-colors">
-                    <Mail size={18} />
-                  </div>
-                  <span className="text-[#5A2D2C] text-base font-medium group-hover:text-brm-maroon">
-                    bumirekayasa.mandiri@yahoo.com
-                  </span>
-                </a>
-              </li>
-            </ul>
+              {/* Site Office */}
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
+                  <MapPin size={20} />
+                </div>
+                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
+                  Kawasan EJIP Jalan Cimandiri 1 Cikarang
+                  <strong className="font-bold text-gray-900 block mt-1">
+                    (Site Office)
+                  </strong>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Bottom Copyright Bar */}
       <div className="bg-linear-to-r from-brm-maroon to-brm-maroon-2 py-5 border-t border-[#5a1e1b]">
         <div className="container mx-auto px-6 flex flex-col items-center gap-3 text-center">
           <a
