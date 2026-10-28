@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-[#EFE9E9] text-gray-800 font-jakarta mt-auto border-t border-[#E5DFDF]">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-12">
-          <div className="w-full lg:w-[32%] flex flex-col items-start text-left">
+          <div className="w-full lg:w-[32%] flex items-center justify-start lg:self-center">
             <img
               src="/images/logo-brm-2.png"
               alt="PT. Bumi Rekayasa Mandiri"
