@@ -7,24 +7,14 @@ export default function Footer() {
     <footer className="bg-[#EFE9E9] text-gray-800 font-jakarta mt-auto border-t border-[#E5DFDF]">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-12">
-          {/* Column 1: Logo & Company Description */}
-          <div className="w-full lg:w-[32%] space-y-5 flex flex-col items-start text-left">
+          <div className="w-full lg:w-[32%] flex flex-col items-start text-left">
             <img
               src="/images/logo-brm-2.png"
               alt="PT. Bumi Rekayasa Mandiri"
-              className="h-20 md:h-24 w-auto object-contain"
+              className="h-32 md:h-44 lg:h-48 w-auto object-contain"
             />
-            <p className="text-sm md:text-[15px] text-gray-700 leading-relaxed text-left max-w-sm">
-              <strong className="font-bold text-gray-900">
-                PT. Bumi Rekayasa Mandiri
-              </strong>{" "}
-              adalah perusahaan kontraktor yang bergerak di bidang jasa konstruksi,
-              berkomitmen untuk menghadirkan solusi pembangunan yang berkualitas,
-              efisien, dan berkelanjutan.
-            </p>
           </div>
 
-          {/* Column 2: More Information */}
           <div className="w-full lg:w-auto shrink-0 space-y-5 flex flex-col items-start text-left">
             <div className="border-b-2 border-[#782925] pb-1.5 inline-block">
               <h3 className="text-2xl md:text-3xl font-bold text-[#782925] tracking-tight">
@@ -33,12 +23,11 @@ export default function Footer() {
             </div>
 
             <div className="space-y-4">
-              {/* Phone */}
               <a
                 href="tel:+62811964060"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md">
                   <Phone size={20} className="fill-current" />
                 </div>
                 <div className="text-left">
@@ -51,7 +40,6 @@ export default function Footer() {
                 </div>
               </a>
 
-              {/* Fax */}
               <div className="flex items-center gap-4">
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md">
                   <Phone size={20} className="fill-current" />
@@ -66,12 +54,11 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Email 1 */}
               <a
                 href="mailto:bumirekayasa.mandiri@gmail.com"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md">
                   <Mail size={20} />
                 </div>
                 <div className="text-left">
@@ -84,12 +71,11 @@ export default function Footer() {
                 </div>
               </a>
 
-              {/* Email 2 */}
               <a
                 href="mailto:marketing@bumirekayasamandiri.co.id"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-105">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md">
                   <Mail size={20} />
                 </div>
                 <div className="text-left">
@@ -104,7 +90,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3: Location */}
           <div className="w-full lg:w-[34%] space-y-5 flex flex-col items-start text-left">
             <div className="border-b-2 border-[#782925] pb-1.5 inline-block">
               <h3 className="text-2xl md:text-3xl font-bold text-[#782925] tracking-tight">
@@ -113,7 +98,6 @@ export default function Footer() {
             </div>
 
             <div className="space-y-4">
-              {/* Main Office */}
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
                   <MapPin size={20} />
@@ -127,7 +111,6 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* Branch Office */}
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
                   <MapPin size={20} />
@@ -140,7 +123,6 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* Site Office */}
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
                   <MapPin size={20} />
@@ -157,7 +139,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright Bar */}
       <div className="bg-linear-to-r from-brm-maroon to-brm-maroon-2 py-5 border-t border-[#5a1e1b]">
         <div className="container mx-auto px-6 flex flex-col items-center gap-3 text-center">
           <a
