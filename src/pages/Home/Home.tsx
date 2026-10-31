@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { homeApi } from '../../api/homeApi';
 import type { HomeData } from '../../api/homeApi';
+import { articleApi } from '../../api/articleApi';
+import type { ArticleItem } from '../../api/articleApi';
 import Loader from '../../components/common/Loader';
 
 const Home = () => {
@@ -11,7 +13,9 @@ const Home = () => {
   const [isVideoFinished, setIsVideoFinished] = useState(false);
 
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const [activeArticleTab, setActiveArticleTab] = useState<'news' | 'release'>('news');
+  const [activeArticleTab, setActiveArticleTab] = useState<'latest' | 'all'>('latest');
+  const [allArticles, setAllArticles] = useState<ArticleItem[]>([]);
+  const [loadingAllArticles, setLoadingAllArticles] = useState(false);
 
   const clientScrollRef = useRef<HTMLDivElement>(null);
 
@@ -62,11 +66,26 @@ const Home = () => {
     setCurrentProjectIndex((prev) => (prev === 0 ? data.featured_projects.length - 1 : prev - 1));
   };
 
+  const handleArticleTabChange = async (tab: 'latest' | 'all') => {
+    setActiveArticleTab(tab);
+    if (tab === 'all' && allArticles.length === 0) {
+      try {
+        setLoadingAllArticles(true);
+        const res = await articleApi.getAllArticles();
+        setAllArticles(res);
+      } catch (error) {
+        console.error('Failed to fetch all articles', error);
+      } finally {
+        setLoadingAllArticles(false);
+      }
+    }
+  };
+
   if (loading) return <Loader />;
   if (!data) return null;
 
   const currentProject = data.featured_projects[currentProjectIndex];
-  const activeArticles = activeArticleTab === 'news' ? data.articles.latest_news : data.articles.news_release;
+  const displayedArticles = activeArticleTab === 'latest' ? data.articles.latest_news : allArticles;
 
   const duplicatedClients = data.clients ? [...data.clients, ...data.clients] : [];
 
@@ -169,38 +188,45 @@ const Home = () => {
 
             <div className="flex bg-[#fcf9f6] p-1 rounded-full border border-gray-200">
               <button
-                onClick={() => setActiveArticleTab('news')}
-                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeArticleTab === 'news' ? 'bg-[#8a2f2b] text-white shadow-md' : 'text-gray-500 hover:text-[#5a1e1b]'}`}
+                type="button"
+                onClick={() => handleArticleTabChange('latest')}
+                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeArticleTab === 'latest' ? 'bg-[#8a2f2b] text-white shadow-md' : 'text-gray-500 hover:text-[#5a1e1b]'}`}
               >
                 Latest News
               </button>
               <button
-                onClick={() => setActiveArticleTab('release')}
-                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeArticleTab === 'release' ? 'bg-[#8a2f2b] text-white shadow-md' : 'text-gray-500 hover:text-[#5a1e1b]'}`}
+                type="button"
+                onClick={() => handleArticleTabChange('all')}
+                className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeArticleTab === 'all' ? 'bg-[#8a2f2b] text-white shadow-md' : 'text-gray-500 hover:text-[#5a1e1b]'}`}
               >
-                News Release
+                All Articles
               </button>
             </div>
           </div>
 
           <div className="space-y-4">
-            {activeArticles.length > 0 ? (
-              activeArticles.map((article) => (
-                <div key={article.id} className="group flex flex-col md:flex-row gap-4 md:items-center py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded-lg px-3 -mx-3">
-                  <div className="w-full md:w-1/4 text-gray-500 font-medium text-xs md:text-sm">{article.published_at || 'Date unavailable'}</div>
-                  <div className="w-full md:w-3/4 flex items-start gap-3">
-                    <span className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide ${article.type === 'news' ? 'bg-[#0e3b28]' : 'bg-[#5a1e1b]'}`}>
-                      {article.type === 'news' ? 'News Update' : 'Press Release'}
-                    </span>
-                    <Link to={`/articles/${article.slug}`} className="block group-hover:translate-x-1 transition-transform duration-300">
-                      <h4 className="text-base md:text-lg font-bold text-gray-800 group-hover:text-[#5a1e1b] transition-colors mb-0.5">{article.title}</h4>
-                      <p className="text-gray-500 text-xs md:text-sm line-clamp-1">{article.excerpt}</p>
-                    </Link>
+            {loadingAllArticles ? (
+              <p className="text-center text-gray-400 py-8">Loading articles...</p>
+            ) : displayedArticles.length > 0 ? (
+              displayedArticles.map((article) => {
+                const dateText = 'published_at_human' in article && article.published_at_human ? article.published_at_human : article.published_at || 'Date unavailable';
+                return (
+                  <div key={article.id} className="group flex flex-col md:flex-row gap-4 md:items-center py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded px-3 -mx-3">
+                    <div className="w-full md:w-1/4 text-gray-500 font-medium text-xs md:text-sm">{dateText}</div>
+                    <div className="w-full md:w-3/4 flex items-start gap-3">
+                      <span className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide ${article.type === 'release' ? 'bg-[#5a1e1b]' : 'bg-[#0e3b28]'}`}>
+                        {article.type === 'release' ? 'Press Release' : 'News Update'}
+                      </span>
+                      <Link to={`/articles/${article.slug}`} className="block group-hover:translate-x-1 transition-transform duration-300">
+                        <h4 className="text-base md:text-lg font-bold text-gray-800 group-hover:text-[#5a1e1b] transition-colors mb-0.5">{article.title}</h4>
+                        <p className="text-gray-500 text-xs md:text-sm line-clamp-1">{article.excerpt}</p>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
-              <p className="text-center text-gray-400 py-8">No articles found in this category.</p>
+              <p className="text-center text-gray-400 py-8">No articles found.</p>
             )}
           </div>
         </div>
