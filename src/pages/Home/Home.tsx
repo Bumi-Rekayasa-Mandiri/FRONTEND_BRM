@@ -16,6 +16,8 @@ const Home = () => {
   const [activeArticleTab, setActiveArticleTab] = useState<'latest' | 'all'>('latest');
   const [allArticles, setAllArticles] = useState<ArticleItem[]>([]);
   const [loadingAllArticles, setLoadingAllArticles] = useState(false);
+  const [articlePage, setArticlePage] = useState(1);
+  const [articleTotalPages, setArticleTotalPages] = useState(1);
 
   const clientScrollRef = useRef<HTMLDivElement>(null);
 
@@ -66,18 +68,24 @@ const Home = () => {
     setCurrentProjectIndex((prev) => (prev === 0 ? data.featured_projects.length - 1 : prev - 1));
   };
 
-  const handleArticleTabChange = async (tab: 'latest' | 'all') => {
+  const loadArticlesPage = async (page: number) => {
+    try {
+      setLoadingAllArticles(true);
+      const res = await articleApi.getArticles(page);
+      setAllArticles(res.data);
+      setArticlePage(res.meta.current_page);
+      setArticleTotalPages(res.meta.last_page);
+    } catch (error) {
+      console.error('Failed to fetch articles', error);
+    } finally {
+      setLoadingAllArticles(false);
+    }
+  };
+
+  const handleArticleTabChange = (tab: 'latest' | 'all') => {
     setActiveArticleTab(tab);
     if (tab === 'all' && allArticles.length === 0) {
-      try {
-        setLoadingAllArticles(true);
-        const res = await articleApi.getAllArticles();
-        setAllArticles(res);
-      } catch (error) {
-        console.error('Failed to fetch all articles', error);
-      } finally {
-        setLoadingAllArticles(false);
-      }
+      loadArticlesPage(1);
     }
   };
 
@@ -229,6 +237,46 @@ const Home = () => {
               <p className="text-center text-gray-400 py-8">No articles found.</p>
             )}
           </div>
+
+          {activeArticleTab === 'all' && articleTotalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 pt-6">
+              <button
+                type="button"
+                onClick={() => loadArticlesPage(articlePage - 1)}
+                disabled={articlePage <= 1 || loadingAllArticles}
+                className="p-2 border border-gray-200 rounded text-gray-600 hover:border-[#5a1e1b] hover:text-[#5a1e1b] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                aria-label="Previous Page"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {Array.from({ length: articleTotalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  key={pageNum}
+                  type="button"
+                  onClick={() => loadArticlesPage(pageNum)}
+                  disabled={loadingAllArticles}
+                  className={`w-9 h-9 text-sm font-semibold rounded border transition-colors ${
+                    pageNum === articlePage
+                      ? 'bg-[#8a2f2b] text-white border-[#8a2f2b]'
+                      : 'border-gray-200 text-gray-700 hover:border-[#5a1e1b] hover:text-[#5a1e1b] bg-white'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => loadArticlesPage(articlePage + 1)}
+                disabled={articlePage >= articleTotalPages || loadingAllArticles}
+                className="p-2 border border-gray-200 rounded text-gray-600 hover:border-[#5a1e1b] hover:text-[#5a1e1b] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                aria-label="Next Page"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
