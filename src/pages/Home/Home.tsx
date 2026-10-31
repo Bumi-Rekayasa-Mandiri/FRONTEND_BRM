@@ -20,6 +20,7 @@ const Home = () => {
   const [articleTotalPages, setArticleTotalPages] = useState(1);
 
   const clientScrollRef = useRef<HTMLDivElement>(null);
+  const articlesSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,13 +69,16 @@ const Home = () => {
     setCurrentProjectIndex((prev) => (prev === 0 ? data.featured_projects.length - 1 : prev - 1));
   };
 
-  const loadArticlesPage = async (page: number) => {
+  const loadArticlesPage = async (page: number, shouldScroll = true) => {
     try {
       setLoadingAllArticles(true);
       const res = await articleApi.getArticles(page);
       setAllArticles(res.data);
       setArticlePage(res.meta.current_page);
       setArticleTotalPages(res.meta.last_page);
+      if (shouldScroll && articlesSectionRef.current) {
+        articlesSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     } catch (error) {
       console.error('Failed to fetch articles', error);
     } finally {
@@ -85,7 +89,7 @@ const Home = () => {
   const handleArticleTabChange = (tab: 'latest' | 'all') => {
     setActiveArticleTab(tab);
     if (tab === 'all' && allArticles.length === 0) {
-      loadArticlesPage(1);
+      loadArticlesPage(1, false);
     }
   };
 
@@ -186,7 +190,7 @@ const Home = () => {
         </section>
       )}
 
-      <section className="py-12 bg-white">
+      <section ref={articlesSectionRef} className="py-12 bg-white scroll-mt-20">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-200 pb-4">
             <div className="mb-4 md:mb-0">
@@ -212,9 +216,9 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            {loadingAllArticles ? (
-              <p className="text-center text-gray-400 py-8">Loading articles...</p>
+          <div className={`space-y-4 min-h-[350px] transition-opacity duration-200 ${loadingAllArticles ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
+            {loadingAllArticles && displayedArticles.length === 0 ? (
+              <p className="text-center text-gray-400 py-16">Loading articles...</p>
             ) : displayedArticles.length > 0 ? (
               displayedArticles.map((article) => {
                 const dateText = 'published_at_human' in article && article.published_at_human ? article.published_at_human : article.published_at || 'Date unavailable';
