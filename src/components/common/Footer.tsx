@@ -98,18 +98,23 @@ export default function Footer() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
+              <a
+                href="https://maps.app.goo.gl/sBxrWuoWke5z9d5C9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 group"
+              >
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
                   <MapPin size={20} />
                 </div>
-                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
+                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left group-hover:text-[#782925] transition-colors">
                   Ruko Dharmawangsa Blok D-8/DC, Grand Taruma Karawang, Jawa Barat,
                   Indonesia
-                  <strong className="font-bold text-gray-900 block mt-1">
+                  <strong className="font-bold text-gray-900 group-hover:text-[#782925] block mt-1 transition-colors">
                     (Main Office)
                   </strong>
                 </p>
-              </div>
+              </a>
 
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
