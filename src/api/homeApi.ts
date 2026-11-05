@@ -10,6 +10,7 @@ export interface ArticleHomeItem {
   excerpt: string;
   type: "news" | "release";
   thumbnail: string | null;
+  featured_image?: string | null;
   published_at: string;
   frontend_url: string;
 }

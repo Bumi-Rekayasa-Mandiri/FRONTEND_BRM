@@ -8,6 +8,7 @@ export interface ArticleItem {
   content: string;
   type?: "news" | "release";
   featured_image: string | null;
+  thumbnail?: string | null;
   content_images: string[];
   published_at: string;
   published_at_human: string;

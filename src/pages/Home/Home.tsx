@@ -224,25 +224,42 @@ const Home = () => {
                 const dateText = 'published_at_human' in article && article.published_at_human ? article.published_at_human : article.published_at || 'Date unavailable';
                 const showNewsBadge = activeArticleTab === 'latest' && article.type !== 'release';
                 const showReleaseBadge = article.type === 'release';
+                const imageSrc = article.thumbnail || article.featured_image;
 
                 return (
-                  <div key={article.id} className="group flex flex-col md:flex-row gap-4 md:items-center py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded px-3 -mx-3">
-                    <div className="w-full md:w-1/4 text-gray-500 font-medium text-xs md:text-sm">{dateText}</div>
-                    <div className="w-full md:w-3/4 flex items-start gap-3">
-                      {showReleaseBadge && (
-                        <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide bg-[#5a1e1b]">
-                          Press Release
-                        </span>
+                  <div key={article.id} className="group flex flex-col md:flex-row gap-4 md:items-center py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors rounded px-3 -mx-3">
+                    <div className="w-full md:w-36 text-gray-500 font-medium text-xs md:text-sm shrink-0">{dateText}</div>
+                    <div className="flex-1 flex gap-4 items-center min-w-0">
+                      {imageSrc && (
+                        <Link to={`/articles/${article.slug}`} className="shrink-0 w-24 h-16 sm:w-28 sm:h-18 md:w-32 md:h-20 rounded overflow-hidden bg-gray-100 block">
+                          <img
+                            src={imageSrc}
+                            alt={article.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </Link>
                       )}
-                      {showNewsBadge && (
-                        <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide bg-[#0e3b28]">
-                          News Update
-                        </span>
-                      )}
-                      <Link to={`/articles/${article.slug}`} className="block group-hover:translate-x-1 transition-transform duration-300">
-                        <h4 className="text-base md:text-lg font-bold text-gray-800 group-hover:text-[#5a1e1b] transition-colors mb-0.5">{article.title}</h4>
-                        <p className="text-gray-500 text-xs md:text-sm line-clamp-1">{article.excerpt}</p>
-                      </Link>
+                      <div className="flex-1 min-w-0">
+                        {(showReleaseBadge || showNewsBadge) && (
+                          <div className="mb-1 flex items-center">
+                            {showReleaseBadge && (
+                              <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide bg-[#5a1e1b]">
+                                Press Release
+                              </span>
+                            )}
+                            {showNewsBadge && (
+                              <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wide bg-[#0e3b28]">
+                                News Update
+                              </span>
+                            )}
+                          </div>
+                        )}
+                        <Link to={`/articles/${article.slug}`} className="block">
+                          <h4 className="text-base md:text-lg font-bold text-gray-800 group-hover:text-[#5a1e1b] transition-colors mb-1 line-clamp-1">{article.title}</h4>
+                          <p className="text-gray-500 text-xs md:text-sm line-clamp-2">{article.excerpt}</p>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );
