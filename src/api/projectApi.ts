@@ -27,16 +27,13 @@ export interface ProjectDetailItem extends ProjectListItem {
   client?: { name: string; website?: string };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const extractData = (response: any) => {
-  if (response?.data?.data && Array.isArray(response.data.data)) {
-    return response.data.data;
+const extractData = <T>(response: unknown): T[] => {
+  const res = response as { data?: { data?: T[] } | T[] };
+  if (res?.data && typeof res.data === "object" && "data" in res.data && Array.isArray(res.data.data)) {
+    return res.data.data;
   }
-  if (response?.data && Array.isArray(response.data)) {
-    return response.data;
-  }
-  if (Array.isArray(response?.data)) {
-    return response.data;
+  if (Array.isArray(res?.data)) {
+    return res.data;
   }
   if (Array.isArray(response)) {
     return response;
@@ -47,12 +44,22 @@ const extractData = (response: any) => {
 export const projectApi = {
   getGalleryData: async (): Promise<ProjectGalleryItem[]> => {
     const response = await apiClient.get("/projects/gallery");
-    return extractData(response);
+    return extractData<ProjectGalleryItem>(response);
   },
 
   getAllProjects: async (): Promise<ProjectListItem[]> => {
-    const response = await apiClient.get("/projects");
-    return extractData(response);
+    const firstRes = await apiClient.get("/projects?per_page=24");
+    const list = extractData<ProjectListItem>(firstRes);
+    const lastPage = (firstRes.data as { meta?: { last_page?: number } })?.meta?.last_page || 1;
+    if (lastPage > 1) {
+      const rest = await Promise.all(
+        Array.from({ length: lastPage - 1 }, (_, i) =>
+          apiClient.get(`/projects?per_page=24&page=${i + 2}`).then((res) => extractData<ProjectListItem>(res))
+        )
+      );
+      return list.concat(...rest);
+    }
+    return list;
   },
 
   getProjectBySlug: async (slug: string): Promise<ProjectDetailItem> => {
