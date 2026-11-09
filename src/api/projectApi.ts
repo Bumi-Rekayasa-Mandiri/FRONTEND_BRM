@@ -51,15 +51,16 @@ export const projectApi = {
     const firstRes = await apiClient.get("/projects?per_page=24");
     const list = extractData<ProjectListItem>(firstRes);
     const lastPage = (firstRes.data as { meta?: { last_page?: number } })?.meta?.last_page || 1;
+    let all = list;
     if (lastPage > 1) {
       const rest = await Promise.all(
         Array.from({ length: lastPage - 1 }, (_, i) =>
           apiClient.get(`/projects?per_page=24&page=${i + 2}`).then((res) => extractData<ProjectListItem>(res))
         )
       );
-      return list.concat(...rest);
+      all = list.concat(...rest);
     }
-    return list;
+    return all.reverse();
   },
 
   getProjectBySlug: async (slug: string): Promise<ProjectDetailItem> => {
