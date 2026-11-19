@@ -28,6 +28,10 @@ export interface HomeData {
 export const homeApi = {
   getHomeData: async (): Promise<HomeData> => {
     const response = await apiClient.get("/home");
-    return response.data;
+    const data = response.data;
+    if (data?.featured_projects && Array.isArray(data.featured_projects)) {
+      data.featured_projects = [...data.featured_projects].reverse();
+    }
+    return data;
   },
 };
