@@ -133,6 +133,18 @@ export default function Footer() {
                   <MapPin size={20} />
                 </div>
                 <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
+                  KEK Industropolis Batang (KITB), Gedung Pengelola Lt.3, Gringsing, Kab. Batang, Jawa Tengah 51281
+                  <strong className="font-bold text-gray-900 block mt-1">
+                    (Branch Office)
+                  </strong>
+                </p>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#782925] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
+                  <MapPin size={20} />
+                </div>
+                <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
                   Kawasan EJIP Jalan Cimandiri 1 Cikarang
                   <strong className="font-bold text-gray-900 block mt-1">
                     (Site Office)
