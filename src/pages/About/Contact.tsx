@@ -25,9 +25,9 @@ const OFFICES = [
   },
   {
     title: 'Site Office',
-    address: 'Kawasan EJIP Jalan Cimandiri 1, Sukaresmi, Cikarang Selatan, Beksi - Jawa Barat',
-    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=Kawasan EJIP Jalan Cimandiri 1, Sukaresmi, Cikarang Selatan, Beksi - Jawa Barat',
-    mapsUrl: 'https://maps.google.com/?q=Kawasan+EJIP+Jalan+Cimandiri+1+Sukaresmi+Cikarang+Selatan+Beksi+Jawa+Barat',
+    address: 'Kawasan EJIP Jalan Cimandiri 1, Sukaresmi, Cikarang Selatan, Bekasi - Jawa Barat',
+    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=Kawasan EJIP Jalan Cimandiri 1, Sukaresmi, Cikarang Selatan, Bekasi - Jawa Barat',
+    mapsUrl: 'https://maps.google.com/?q=Kawasan+EJIP+Jalan+Cimandiri+1+Sukaresmi+Cikarang+Selatan+Bekasi+Jawa+Barat',
   },
 ];
 
