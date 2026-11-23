@@ -145,7 +145,7 @@ export default function Footer() {
                   <MapPin size={20} />
                 </div>
                 <p className="text-xs md:text-sm text-gray-800 leading-snug text-left">
-                  Kawasan EJIP Jalan Cimandiri 1 Cikarang
+                  Kawasan EJIP Jalan Cimandiri 1, Sukaresmi, Cikarang Selatan, Beksi - Jawa Barat
                   <strong className="font-bold text-gray-900 block mt-1">
                     (Site Office)
                   </strong>
