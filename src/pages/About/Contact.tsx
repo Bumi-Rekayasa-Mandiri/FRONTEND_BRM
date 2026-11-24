@@ -8,14 +8,14 @@ const OFFICES = [
   {
     title: 'Main Office',
     address: 'Ruko Dharmawangsa Blok D-8/DC, Grand Taruna Karawang, Jawa Barat, Indonesia',
-    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=Ruko Dharmawangsa Blok D-8/DC Grand Taruna Karawang Jawa Barat Indonesia',
+    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=https://maps.app.goo.gl/ABBJNmrr3hY8EC657',
     mapsUrl: 'https://maps.app.goo.gl/ABBJNmrr3hY8EC657',
   },
   {
     title: 'Branch Office',
     address: 'Kawasan Industri KIIC East Ecospace II No. 2 Karawang 41361 Jawa Barat, Indonesia',
-    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=KIIC East Ecospace II No.2 Karawang 41361 Jawa Barat Indonesia',
-    mapsUrl: 'https://maps.google.com/?q=KIIC+East+Ecospace+II+No.2+Karawang+41361+Jawa+Barat+Indonesia',
+    qrUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=https://maps.app.goo.gl/mj6fnLFTsuHzTGke6',
+    mapsUrl: 'https://maps.app.goo.gl/mj6fnLFTsuHzTGke6',
   },
   {
     title: 'Branch Office',
